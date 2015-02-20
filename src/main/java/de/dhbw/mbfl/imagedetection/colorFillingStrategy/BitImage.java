@@ -12,18 +12,25 @@ import java.util.HashMap;
  */
 public class BitImage {
     private BitSet pixels;
+    private int origImageWidth;
 
     public BitImage(BufferedImage image, BitImageConverter converter) {
         this.pixels = new BitSet(image.getWidth() * image.getWidth());
-
+        this.convertFromBufferedImage(image, converter);
     }
 
-    private boolean getPixel(Point p) {
-
+    public boolean getPixel(Point p) {
+        int i = this.calculatePositionInBitSet(p);
+        this.pixels.get(i);
     }
 
-    private void setPixel(Point p, boolean state) {
+    public void setPixel(Point p, boolean state) {
+        int i = this.calculatePositionInBitSet(p);
+        this.pixels.set(i, state);
+    }
 
+    private int calculatePositionInBitSet(Point p) {
+        return p.x + p.y * this.origImageWidth;
     }
 
     private void convertFromBufferedImage(BufferedImage image, BitImageConverter converter) {
@@ -38,7 +45,7 @@ public class BitImage {
                     value = new Boolean(converter.isPixelSet(image, p));
                 }
 
-
+                this.setPixel(p, value);
 
                 cache.put(p, value);
             }
