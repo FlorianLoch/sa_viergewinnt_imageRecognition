@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetectiontesting.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
 
 import java.awt.*;
 import java.util.Iterator;

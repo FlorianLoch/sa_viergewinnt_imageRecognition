@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetectiontesting;
+package de.dhbw.mbfl.imagedetection;
 
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 

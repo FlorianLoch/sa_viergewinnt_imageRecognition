@@ -1,6 +1,6 @@
-package de.dhbw.mbfl.imagedetectiontesting.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
 
-import de.dhbw.mbfl.imagedetectiontesting.AnalysisStrategy;
+import de.dhbw.mbfl.imagedetection.AnalysisStrategy;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 
 import javax.imageio.ImageIO;

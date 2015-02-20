@@ -1,8 +1,7 @@
-package de.dhbw.mbfl.imagedetectiontesting.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -31,16 +30,16 @@ public class ImagePartitioner {
         }
     }
 
-    public ArrayList<ImagePartition> partition() {
-        ArrayList<ImagePartition> segments = new ArrayList<ImagePartition>();
+    public PartitionedImage partition() {
+        PartitionedImage partitionedImage = new PartitionedImage();
 
         while (!this.pixels.isEmpty()) {
             Point startingPoint = this.pixels.iterator().next();
             ImagePartition nextPartition = this.findNextPartition(startingPoint);
-            segments.add(nextPartition);
+            partitionedImage.add(nextPartition);
         }
 
-        return segments;
+        return partitionedImage;
     }
 
     private ImagePartition findNextPartition(Point startingPoint) {

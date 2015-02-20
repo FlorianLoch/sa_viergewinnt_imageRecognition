@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.dhbw.mbfl.imagedetectiontesting.houghStrategy;
+package de.dhbw.mbfl.imagedetection.houghStrategy;
 
-import de.dhbw.mbfl.imagedetectiontesting.ImagePreviewPanel;
+import de.dhbw.mbfl.imagedetection.ImagePreviewPanel;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 import de.dhbw.mbfl.jconnect4lib.board.Position;
 import de.dhbw.mbfl.jconnect4lib.board.Stone;
