@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImagePartitioning;
 
 import java.awt.*;
 import java.util.Iterator;

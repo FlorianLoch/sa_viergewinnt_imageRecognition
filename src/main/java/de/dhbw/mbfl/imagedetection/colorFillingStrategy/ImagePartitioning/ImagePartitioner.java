@@ -1,7 +1,8 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImagePartitioning;
+
+import de.dhbw.mbfl.imagedetection.colorFillingStrategy.BitImage.BitImage;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.*;
 
 /**
@@ -9,32 +10,25 @@ import java.util.*;
  */
 public class ImagePartitioner {
 
-    private BufferedImage image;
-    private HashSet<Point> pixels = new HashSet<Point>();
+    private BitImage image;
+    private HashSet<Point> setPixels = new HashSet<Point>();
     private NeighbourSearchMode mode;
 
-    public ImagePartitioner(BufferedImage image) {
+    public ImagePartitioner(BitImage image) {
         this(image, NeighbourSearchMode.HOR_VER);
     }
 
-    public ImagePartitioner(BufferedImage image, NeighbourSearchMode mode) {
+    public ImagePartitioner(BitImage image, NeighbourSearchMode mode) {
         this.image = image;
         this.mode = mode;
-
-        for (int i = 0; i < image.getWidth(); i ++) {
-            for (int j = 0; j < image.getHeight(); j++) {
-                if (image.getRGB(i, j) == Color.WHITE.getRGB()) {
-                    pixels.add(new Point(i, j));
-                }
-            }
-        }
+        this.setPixels = image.getAllSetPixels();
     }
 
     public PartitionedImage partition() {
         PartitionedImage partitionedImage = new PartitionedImage();
 
-        while (!this.pixels.isEmpty()) {
-            Point startingPoint = this.pixels.iterator().next();
+        while (!this.setPixels.isEmpty()) {
+            Point startingPoint = this.setPixels.iterator().next();
             ImagePartition nextPartition = this.findNextPartition(startingPoint);
             partitionedImage.add(nextPartition);
         }
@@ -48,18 +42,18 @@ public class ImagePartitioner {
 
         pointsToVisit.add(startingPoint);
         partition.add(startingPoint);
-        pixels.remove(startingPoint);
+        this.setPixels.remove(startingPoint);
 
         while (!pointsToVisit.empty()) {
             Point p = pointsToVisit.pop();
             ArrayList<Point> neighbours = this.getNeighbours(p);
             for (Point neighbour : neighbours) {
                 if (!this.isPixelSet(neighbour)) continue;
-                if (partition.contains(neighbour)) continue;
+                //if (partition.contains(neighbour)) continue; unnecessary because if the pixel has been added to the partition already, it has also been removed from setPixels
 
                 pointsToVisit.add(neighbour);
                 partition.add(neighbour);
-                pixels.remove(neighbour);
+                this.setPixels.remove(neighbour);
             }
         }
 
@@ -67,7 +61,7 @@ public class ImagePartitioner {
     }
 
     private boolean isPixelSet(Point p) {
-        return (this.image.getRGB(p.x, p.y) == Color.WHITE.getRGB());
+        return this.setPixels.contains(p);
     }
 
     private ArrayList<Point> getNeighbours(Point p) {
@@ -85,7 +79,4 @@ public class ImagePartitioner {
         return neighbours;
     }
 
-    public enum NeighbourSearchMode {
-        HOR_VER, HOR_VER_DIAG;
-    }
 }
