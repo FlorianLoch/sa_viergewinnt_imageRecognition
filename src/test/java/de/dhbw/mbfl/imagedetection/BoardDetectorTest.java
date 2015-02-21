@@ -15,11 +15,11 @@ public class BoardDetectorTest {
 
     @Test
     public void overallTest() throws IOException, ImageAnalysisException {
-        BufferedImage calibrationImage = ImageIO.read(new File("sample_calibration.png"));
-        BufferedImage sampleImageForDetection = ImageIO.read(new File("sample_detection.png"));
+        BufferedImage calibrationImage = ImageIO.read(new File("sample_images/real_game_calibration_small.png"));
+        BufferedImage sampleImageForDetection = ImageIO.read(new File("sample_images/real_game_detection_small.jpg"));
 
-        Point yellowSpot = new Point();
-        Point redSpot = new Point();
+        Point yellowSpot = new Point(272, 177);
+        Point redSpot = new Point(403, 171);
 
         final int COLUMNS = 7;
         final int ROWS = 6;
@@ -29,6 +29,8 @@ public class BoardDetectorTest {
         BoardDetector detector = new BoardDetector(calibration);
 
         Board board = detector.detectBoardAllocation(sampleImageForDetection);
+
+        System.out.println(board);
     }
 
 }

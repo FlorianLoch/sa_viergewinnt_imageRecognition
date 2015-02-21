@@ -12,9 +12,7 @@ import java.util.HashSet;
 public class BitImage {
     private BitSet pixels;
     private int origImageWidth;
-    public static byte[][] MORPHOLOGICAL_5_SQUARE_MATRIX = new byte[][] {
-            {1,1,1,1,1}, {1,1,1,1,1}, {1,1,1,1,1}, {1,1,1,1,1}, {1,1,1,1,1}
-    };
+    public static byte[][] MORPHOLOGICAL_5_SQUARE_MATRIX = buildMorphMatrix(5);
     public static int MORPHOLOGICAL_5_SQUARE_MATRIX_X_CENTER = 2;
     public static int MORPHOLOGICAL_5_SQUARE_MATRIX_Y_CENTER = 2;
 
@@ -102,7 +100,7 @@ public class BitImage {
                 for (int h = 0; h < erodeMatrix.length; h++) {
                     for (int k = 0; k < erodeMatrix[0].length; k++) {
                         int x = (i - centerX) + h;
-                        int y = (i - centerY) + k;
+                        int y = (j - centerY) + k;
                         if (erodeMatrix[h][k] == 1 && this.getPixel(new Point(x, y)) == false) continue outer;
                     }
                 }
@@ -112,6 +110,16 @@ public class BitImage {
         }
 
         return copy;
+    }
+
+    public BufferedImage toBufferedImage() {
+        BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+
+        for (Point p : this.getAllSetPixels()) {
+            img.setRGB(p.x, p.y, Color.WHITE.getRGB());
+        }
+
+        return img;
     }
 
     private int calculatePositionInBitSet(Point p) {
@@ -141,5 +149,17 @@ public class BitImage {
                 cache.put(c, value);
             }
         }
+    }
+
+    public static byte[][] buildMorphMatrix(int n) {
+        byte[][] matrix = new byte[n][n];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] = 1;
+            }
+        }
+
+        return matrix;
     }
 }

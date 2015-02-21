@@ -10,8 +10,11 @@ import de.dhbw.mbfl.jconnect4lib.board.Board;
 import de.dhbw.mbfl.jconnect4lib.board.Position;
 import de.dhbw.mbfl.jconnect4lib.board.Stone;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by florian on 19.02.15.
@@ -19,11 +22,11 @@ import java.awt.image.BufferedImage;
 public class BoardDetector {
 
     public static final int WINDOW_SIZE_FOR_AVG = 2;
-    public static final double COLOR_EQUALITY_TOLERANCE = 65D;
+    public static final double COLOR_EQUALITY_TOLERANCE = 80D;
 
     private CalibrationInfo calibration;
 
-    public static CalibrationInfo calibrate(BufferedImage image, Point yellowSpot, Point redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException {
+    public static CalibrationInfo calibrate(BufferedImage image, Point yellowSpot, Point redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
         CalibrationInfo info = new CalibrationInfo();
 
         Color yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
@@ -34,16 +37,23 @@ public class BoardDetector {
 
         BitImageConverter converter = new ColorBitImageConverter(new Color[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
         BitImage bitImage = new BitImage(image, converter);
+        ImageIO.write(bitImage.toBufferedImage(), "png", new File("0_bitImage.png"));
 
-        bitImage = bitImage.erode(BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX, BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX_X_CENTER, BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX_Y_CENTER);
-        bitImage = bitImage.dilate(BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX, BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX_X_CENTER, BitImage.MORPHOLOGICAL_5_SQUARE_MATRIX_Y_CENTER);
+        bitImage = bitImage.erode(BitImage.buildMorphMatrix(15), 7, 7);
+
+        ImageIO.write(bitImage.toBufferedImage(), "png", new File("1_eroded.png"));
+
+        bitImage = bitImage.dilate(BitImage.buildMorphMatrix(15), 7, 7);
+        ImageIO.write(bitImage.toBufferedImage(), "png", new File("2_dilated.png"));
+
+
 
         ImagePartitioner partitioner = new ImagePartitioner(bitImage);
         PartitionedImage partitions = partitioner.partition();
 
         if (partitions.size() != columns * rows) {
             throw new ImageAnalysisException("In the given image " + partitions.size() + " fields haven been found. " +
-                    "But only " + columns * rows + " have been expected.");
+                    "But " + columns * rows + " have been expected.");
         }
 
         partitions = partitions.sortPartitions(columns);

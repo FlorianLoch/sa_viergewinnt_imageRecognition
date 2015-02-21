@@ -22,8 +22,8 @@ public class ImageUtils {
     }
 
     /**
-     * Computes the average color in a square with edge length of 2n. This algorithm is not suitable for building an average over more than 2^32/255 pixels
-     * @param n Edge length of square will be 2n
+     * Computes the average color in a square with edge length of 2n+1. This algorithm is not suitable for building an average over more than 2^32/255 pixels
+     * @param n Edge length of square will be 2n+1
      * @param center
      * @param image
      * @return
@@ -46,7 +46,7 @@ public class ImageUtils {
             }
         }
 
-        int size = n*n;
+        int size = (2*n+1)*(2*n+1);
         sumRed /= size;
         sumGreen /= size;
         sumBlue /= size;
