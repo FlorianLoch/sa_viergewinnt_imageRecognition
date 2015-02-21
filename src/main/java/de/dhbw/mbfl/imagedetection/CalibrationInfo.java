@@ -1,6 +1,6 @@
 package de.dhbw.mbfl.imagedetection;
 
-import de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImagePartitioning.PartitionedImage;
+import de.dhbw.mbfl.imagedetection.ImagePartitioning.PartitionedImage;
 
 import java.awt.*;
 

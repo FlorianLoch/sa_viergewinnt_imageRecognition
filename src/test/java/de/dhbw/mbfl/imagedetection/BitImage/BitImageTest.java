@@ -1,14 +1,13 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection.BitImage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
-import de.dhbw.mbfl.imagedetection.colorFillingStrategy.BitImage.BitImage;
-import de.dhbw.mbfl.imagedetection.colorFillingStrategy.BitImage.BitImageConverter;
+import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
+import de.dhbw.mbfl.imagedetection.BitImage.BitImageConverter;
 import org.junit.Test;
 
 public class BitImageTest {
@@ -35,6 +34,7 @@ public class BitImageTest {
         img.setRGB(0, 0, new Color(255, 0, 0).getRGB());
         img.setRGB(0, 1, new Color(0, 255, 0).getRGB());
         img.setRGB(0, 2, new Color(255, 0, 0).getRGB());
+        img.setRGB(9, 9, new Color(0, 255, 0).getRGB());
 
         final MutableInteger counter = new MutableInteger();
         BitImage instance = new BitImage(img, new BitImageConverter() {
@@ -88,7 +88,6 @@ public class BitImageTest {
     }
 
     //TODO Write tests for dilate() and erode()
-
 
     private class MutableInteger {
         public int value = 0;

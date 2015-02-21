@@ -1,6 +1,4 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy.BitImage;
-
-import de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImageUtils;
+package de.dhbw.mbfl.imagedetection.BitImage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

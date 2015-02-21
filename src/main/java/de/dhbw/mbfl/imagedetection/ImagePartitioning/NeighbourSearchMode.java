@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImagePartitioning;
+package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
 /**
  * Created by florian on 21.02.15.

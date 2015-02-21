@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy;
+package de.dhbw.mbfl.imagedetection;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

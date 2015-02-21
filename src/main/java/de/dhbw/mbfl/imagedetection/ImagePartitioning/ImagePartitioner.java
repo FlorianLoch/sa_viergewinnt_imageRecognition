@@ -1,9 +1,11 @@
-package de.dhbw.mbfl.imagedetection.colorFillingStrategy.ImagePartitioning;
+package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
-import de.dhbw.mbfl.imagedetection.colorFillingStrategy.BitImage.BitImage;
+import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Stack;
 
 /**
  * Created by florian on 19.02.15.
