@@ -22,7 +22,7 @@ import java.io.IOException;
 public class BoardDetector {
 
     public static final int WINDOW_SIZE_FOR_AVG = 2;
-    public static final double COLOR_EQUALITY_TOLERANCE = 80D;
+    public static final double COLOR_EQUALITY_TOLERANCE = 70D;
 
     private CalibrationInfo calibration;
 
