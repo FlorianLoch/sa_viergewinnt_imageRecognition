@@ -84,9 +84,7 @@ public class BoardDetector {
     private Stone analyseAllocationOfField(ImagePartition field, BufferedImage image) {
         Stone result;
 
-        int x = field.getCenter().x;
-        int y = field.getCenter().y;
-        Color colorInImage = new Color(image.getRGB(x, y));
+        Color colorInImage = ImageUtils.averageColor(image, field.getCenter(), WINDOW_SIZE_FOR_AVG);
 
         double distanceYellow = ImageUtils.computeColorDistance(this.calibration.getYellow(), colorInImage);
         double distanceRed = ImageUtils.computeColorDistance(this.calibration.getRed(), colorInImage);
