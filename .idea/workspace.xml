@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3e130b-bf06-492a-bf86-c385f7a6d68d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/0_bitImage.png" afterPath="$PROJECT_DIR$/0_bitImage.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1_eroded.png" afterPath="$PROJECT_DIR$/1_eroded.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/2_dilated.png" afterPath="$PROJECT_DIR$/2_dilated.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" afterPath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JConnect4ImageRecognition.iml" afterPath="$PROJECT_DIR$/JConnect4ImageRecognition.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__de_dhbw_mbfl_JConnect4Lib_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__de_dhbw_mbfl_JConnect4Lib_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JConnect4ImageRecognition.iws" />
@@ -62,11 +61,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoardDetectorTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BoardDetectorTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30050084" vertical-offset="0" max-vertical-offset="855">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
               <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8130217" vertical-offset="653" max-vertical-offset="1455">
+              <caret line="76" column="67" selection-start-line="76" selection-start-column="67" selection-end-line="76" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -119,7 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetectiontesting/EdgeDetectionFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetectiontesting/houghStrategy/EdgeDetectionFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetectiontesting/RecognitionStrategy.java" />
@@ -157,6 +165,7 @@
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BitImage/BitImage.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -240,24 +249,6 @@
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JConnect4ImageRecognition" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: de.dhbw.mbfl:JConnect4Lib:1.0-SNAPSHOT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JConnect4Lib-1.0-20150219.114828-1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="JConnect4ImageRecognition" />
@@ -949,12 +940,12 @@
       <created>1424358646891</created>
       <option name="number" value="Default" />
       <updated>1424358646891</updated>
-      <workItem from="1424358650947" duration="56113000" />
+      <workItem from="1424358650947" duration="59544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56113000" />
+    <option name="totallyTimeSpent" value="59544000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1631" height="1027" extended-state="6" />
@@ -1026,14 +1017,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePreviewPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1845">
@@ -1237,14 +1220,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/ImageUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1695">
@@ -1271,8 +1246,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30050084" vertical-offset="0" max-vertical-offset="855">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/ImageUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8130217" vertical-offset="653" max-vertical-offset="1455">
+          <caret line="76" column="67" selection-start-line="76" selection-start-column="67" selection-end-line="76" selection-end-column="67" />
           <folding />
         </state>
       </provider>
