@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+   - openjdk6
+   - openjdk7
+
+after_success:
+   - mvn clean cobertura:cobertura
+   - mvn test
+   - ./deploy_condition.sh
+
+env:
+   - secure: bseTcfgcEaOyYbKlLM7IiX9oSV5fvZ+woylz87k2hnRyk/hfqY9/AbVK/gfTcYdnKkF7Rbb+eqNCdqRhQCst3LoFHPlCsxBCxJEDIep3bVteFAcQGdQRoQskivPg4bZVHS2Kq/vgG4mZbzZpRp5I3qGNlMLc6aFK6u8jmj5nyMdMbipGjVACBOoCbpICXIRsG/e/78SR0t34SASif7gDCm644oJgp3+/0kbhQdv73AEbJVaKDA6h/g4oCjQhviaZsVVPOhOZDiAbhu0CZLQlzov5iiiggtU1+IYF52Q67moHSELTqF2AlqAgNXFBY5LgOIAf5OTrpA02zdFxMMtYSQ==
