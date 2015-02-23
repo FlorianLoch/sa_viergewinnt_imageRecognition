@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>de.dhbw.mbfl</groupId>
+  <artifactId>JConnect4ImageRecognition</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20150223112553</lastUpdated>
+  </versioning>
+</metadata>
