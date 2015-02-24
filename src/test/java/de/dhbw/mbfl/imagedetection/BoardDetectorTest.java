@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class BoardDetectorTest {
@@ -36,9 +37,13 @@ public class BoardDetectorTest {
         final int ROWS = 6;
 
         long startTime = System.currentTimeMillis();
-        CalibrationInfo calibration = BoardDetector.calibrate(calibrationImage, yellowSpot, redSpot, COLUMNS, ROWS);
+        CalibrationInfo calibration = BoardDetector.calibrate(calibrationImage, yellowSpot, redSpot, COLUMNS, ROWS, true); //true activates debug mode, so images are attached to calibration object
         long endTime = System.currentTimeMillis();
         System.out.println("Calibration took " + (endTime - startTime) + " ms");
+
+        assertNotNull(calibration.getAfterConversion());
+        assertNotNull(calibration.getAfterErotation());
+        assertNotNull(calibration.getAfterDilatation());
 
         BoardDetector detector = new BoardDetector(calibration);
 

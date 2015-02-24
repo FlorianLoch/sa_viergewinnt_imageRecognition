@@ -26,6 +26,10 @@ public class BoardDetector {
     private CalibrationInfo calibration;
 
     public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
+        return calibrate(image, yellowSpot, redSpot, columns, rows, false);
+    }
+
+    public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows, boolean debugOutput) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
         CalibrationInfo info = new CalibrationInfo();
 
         AbstractColor yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
@@ -36,16 +40,19 @@ public class BoardDetector {
 
         BitImageConverter converter = new ColorBitImageConverter(new AbstractColor[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
         BitImage bitImage = new BitImage(image, converter);
-        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("0_bitImage.png"));
+        if (debugOutput) {
+            info.setAfterConversion(bitImage.toPortableRasterImage());
+        }
 
         bitImage = bitImage.erode(BitImage.buildMorphMatrix(15), 7, 7);
-
-        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("1_eroded.png"));
+        if (debugOutput) {
+            info.setAfterErotation(bitImage.toPortableRasterImage());
+        }
 
         bitImage = bitImage.dilate(BitImage.buildMorphMatrix(15), 7, 7);
-        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("2_dilated.png"));
-
-
+        if (debugOutput) {
+            info.setAfterDilatation(bitImage.toPortableRasterImage());
+        }
 
         ImagePartitioner partitioner = new ImagePartitioner(bitImage);
         PartitionedImage partitions = partitioner.partition();

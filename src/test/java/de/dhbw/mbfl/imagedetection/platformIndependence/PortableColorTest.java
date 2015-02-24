@@ -1,4 +1,4 @@
-package de.dhbw.mbfl.imagedetection;
+package de.dhbw.mbfl.imagedetection.platformIndependence;
 
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortableColor;
 import org.junit.Test;

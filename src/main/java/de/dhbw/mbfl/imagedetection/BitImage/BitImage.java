@@ -1,8 +1,6 @@
 package de.dhbw.mbfl.imagedetection.BitImage;
 
-import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
-import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractRasterImage;
-import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
+import de.dhbw.mbfl.imagedetection.platformIndependence.*;
 
 import java.util.BitSet;
 import java.util.HashMap;
@@ -114,15 +112,15 @@ public class BitImage {
         return copy;
     }
 
-//    public AbstractRasterImage toBufferedImage() {
-//        AbstractRasterImage img = new AbstractRasterImage(this.getWidth(), this.getHeight());
-//
-//        for (Point p : this.getAllSetPixels()) {
-//            img.setPixel(p.x, p.y, new AbstractColor(0xFFFFFFFF));
-//        }
-//
-//        return img;
-//    }
+    public AbstractRasterImage toPortableRasterImage() {
+        PortableRasterImage img = new PortableRasterImage(this.getWidth(), this.getHeight());
+
+        for (PortablePoint p : this.getAllSetPixels()) {
+            img.setPixel(p.x, p.y, new PortableColor(255, 255, 255));
+        }
+
+        return img;
+    }
 
     private int calculatePositionInBitSet(PortablePoint p) {
         return p.x + p.y * this.origImageWidth;

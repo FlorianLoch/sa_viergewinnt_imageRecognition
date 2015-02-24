@@ -2,6 +2,7 @@ package de.dhbw.mbfl.imagedetection;
 
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.PartitionedImage;
 import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractRasterImage;
 
 /**
  * Created by florian on 20.02.15.
@@ -10,7 +11,9 @@ public class CalibrationInfo {
     private AbstractColor yellow;
     private AbstractColor red;
     private PartitionedImage partitions;
-
+    private AbstractRasterImage afterConversion;
+    private AbstractRasterImage afterErotation;
+    private AbstractRasterImage afterDilatation;
 
     public AbstractColor getYellow() {
         return yellow;
@@ -34,5 +37,29 @@ public class CalibrationInfo {
 
     public void setPartitions(PartitionedImage partitions) {
         this.partitions = partitions;
+    }
+
+    public AbstractRasterImage getAfterConversion() {
+        return afterConversion;
+    }
+
+    public void setAfterConversion(AbstractRasterImage afterConversion) {
+        this.afterConversion = afterConversion;
+    }
+
+    public AbstractRasterImage getAfterErotation() {
+        return afterErotation;
+    }
+
+    public void setAfterErotation(AbstractRasterImage afterErotation) {
+        this.afterErotation = afterErotation;
+    }
+
+    public AbstractRasterImage getAfterDilatation() {
+        return afterDilatation;
+    }
+
+    public void setAfterDilatation(AbstractRasterImage afterDilatation) {
+        this.afterDilatation = afterDilatation;
     }
 }
