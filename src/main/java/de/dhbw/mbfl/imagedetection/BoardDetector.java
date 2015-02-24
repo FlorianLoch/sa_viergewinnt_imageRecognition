@@ -6,14 +6,13 @@ import de.dhbw.mbfl.imagedetection.BitImage.ColorBitImageConverter;
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.ImagePartition;
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.ImagePartitioner;
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.PartitionedImage;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractRasterImage;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 import de.dhbw.mbfl.jconnect4lib.board.Position;
 import de.dhbw.mbfl.jconnect4lib.board.Stone;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -26,25 +25,25 @@ public class BoardDetector {
 
     private CalibrationInfo calibration;
 
-    public static CalibrationInfo calibrate(BufferedImage image, Point yellowSpot, Point redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
+    public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
         CalibrationInfo info = new CalibrationInfo();
 
-        Color yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
-        Color redAvg = ImageUtils.averageColor(image, redSpot, WINDOW_SIZE_FOR_AVG);
+        AbstractColor yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
+        AbstractColor redAvg = ImageUtils.averageColor(image, redSpot, WINDOW_SIZE_FOR_AVG);
 
         info.setYellow(yellowAvg);
         info.setRed(redAvg);
 
-        BitImageConverter converter = new ColorBitImageConverter(new Color[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
+        BitImageConverter converter = new ColorBitImageConverter(new AbstractColor[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
         BitImage bitImage = new BitImage(image, converter);
-        ImageIO.write(bitImage.toBufferedImage(), "png", new File("0_bitImage.png"));
+        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("0_bitImage.png"));
 
         bitImage = bitImage.erode(BitImage.buildMorphMatrix(15), 7, 7);
 
-        ImageIO.write(bitImage.toBufferedImage(), "png", new File("1_eroded.png"));
+        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("1_eroded.png"));
 
         bitImage = bitImage.dilate(BitImage.buildMorphMatrix(15), 7, 7);
-        ImageIO.write(bitImage.toBufferedImage(), "png", new File("2_dilated.png"));
+        //ImageIO.write(bitImage.toBufferedImage(), "png", new File("2_dilated.png"));
 
 
 
@@ -67,7 +66,7 @@ public class BoardDetector {
         this.calibration = calibration;
     }
 
-    public Board detectBoardAllocation(BufferedImage image) {
+    public Board detectBoardAllocation(AbstractRasterImage image) {
         Board board = new Board();
 
         //The fields/partition have already been sorted in the way that Position 42 is in the upper right corner and Position 0 in the bottom lef one
@@ -81,10 +80,10 @@ public class BoardDetector {
         return board;
     }
 
-    private Stone analyseAllocationOfField(ImagePartition field, BufferedImage image) {
+    private Stone analyseAllocationOfField(ImagePartition field, AbstractRasterImage image) {
         Stone result;
 
-        Color colorInImage = ImageUtils.averageColor(image, field.getCenter(), WINDOW_SIZE_FOR_AVG);
+        AbstractColor colorInImage = ImageUtils.averageColor(image, field.getCenter(), WINDOW_SIZE_FOR_AVG);
 
         double distanceYellow = ImageUtils.computeColorDistance(this.calibration.getYellow(), colorInImage);
         double distanceRed = ImageUtils.computeColorDistance(this.calibration.getRed(), colorInImage);

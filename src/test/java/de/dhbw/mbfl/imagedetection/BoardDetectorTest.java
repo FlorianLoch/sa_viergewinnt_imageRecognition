@@ -1,5 +1,8 @@
 package de.dhbw.mbfl.imagedetection;
 
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractRasterImage;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 import de.dhbw.mbfl.jconnect4lib.board.Position;
 import de.dhbw.mbfl.jconnect4lib.board.Stone;
@@ -11,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class BoardDetectorTest {
 
@@ -23,11 +26,11 @@ public class BoardDetectorTest {
         expected.addStone("C2");
         expected.addStone(new Position("D1"), Stone.YELLOW);
 
-        BufferedImage calibrationImage = ImageIO.read(new File("sample_images/real_game_calibration_small.png"));
-        BufferedImage sampleImageForDetection = ImageIO.read(new File("sample_images/real_game_detection_small.png"));
+        JVMImage calibrationImage = new JVMImage(ImageIO.read(new File("sample_images/real_game_calibration_small.png")));
+        JVMImage sampleImageForDetection = new JVMImage(ImageIO.read(new File("sample_images/real_game_detection_small.png")));
 
-        Point yellowSpot = new Point(272, 177);
-        Point redSpot = new Point(403, 171);
+        PortablePoint yellowSpot = new PortablePoint(272, 177);
+        PortablePoint redSpot = new PortablePoint(403, 171);
 
         final int COLUMNS = 7;
         final int ROWS = 6;
@@ -47,6 +50,95 @@ public class BoardDetectorTest {
         System.out.println(board);
 
         assertTrue(expected.areBoardOccupationsEqual(board));
+    }
+
+    private class JVMImage extends AbstractRasterImage {
+        private BufferedImage image;
+
+        public JVMImage(BufferedImage image) {
+            this.image = image;
+        }
+
+        @Override
+        public AbstractColor getPixel(PortablePoint p) {
+            return new JVMColor(this.image.getRGB(p.x, p.y));
+        }
+
+        @Override
+        public void setPixel(PortablePoint p, AbstractColor color) {
+            this.image.setRGB(color.getRed(), color.getGreen(), color.getBlue());
+        }
+
+        @Override
+        public int getWidth() {
+            return this.image.getWidth();
+        }
+
+        @Override
+        public int getHeight() {
+            return this.image.getHeight();
+        }
+    }
+
+    private class JVMColor extends AbstractColor {
+        private Color color;
+
+        public JVMColor(int red, int green, int blue) {
+            this.color = new Color(red, green, blue);
+        }
+
+        public JVMColor(int rgb) {
+            this.color = new Color(rgb);
+        }
+
+        @Override
+        protected void setRed(int red) {
+            this.color = new Color(red, this.getGreen(), this.getBlue());
+        }
+
+        @Override
+        protected void setGreen(int green) {
+            this.color = new Color(this.getRed(), green, this.getBlue());
+
+        }
+
+        @Override
+        protected void setBlue(int blue) {
+            this.color = new Color(this.getRed(), this.getGreen(), blue);
+
+        }
+
+        @Override
+        public int getRed() {
+            return this.color.getRed();
+        }
+
+        @Override
+        public int getGreen() {
+            return this.color.getGreen();
+        }
+
+        @Override
+        public int getBlue() {
+            return this.color.getBlue();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            JVMColor jvmColor = (JVMColor) o;
+
+            if (!color.equals(jvmColor.color)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return color.hashCode();
+        }
     }
 
 }

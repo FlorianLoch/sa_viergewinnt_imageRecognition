@@ -1,8 +1,8 @@
 package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
 import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
@@ -13,7 +13,7 @@ import java.util.Stack;
 public class ImagePartitioner {
 
     private BitImage image;
-    private HashSet<Point> setPixels = new HashSet<Point>();
+    private HashSet<PortablePoint> setPixels = new HashSet<PortablePoint>();
     private NeighbourSearchMode mode;
 
     public ImagePartitioner(BitImage image) {
@@ -30,7 +30,7 @@ public class ImagePartitioner {
         PartitionedImage partitionedImage = new PartitionedImage();
 
         while (!this.setPixels.isEmpty()) {
-            Point startingPoint = this.setPixels.iterator().next();
+            PortablePoint startingPoint = this.setPixels.iterator().next();
             ImagePartition nextPartition = this.findNextPartition(startingPoint);
             partitionedImage.add(nextPartition);
         }
@@ -38,18 +38,18 @@ public class ImagePartitioner {
         return partitionedImage;
     }
 
-    private ImagePartition findNextPartition(Point startingPoint) {
-        Stack<Point> pointsToVisit = new Stack<Point>();
-        HashSet<Point> partition = new HashSet<Point>();
+    private ImagePartition findNextPartition(PortablePoint startingPoint) {
+        Stack<PortablePoint> pointsToVisit = new Stack<PortablePoint>();
+        HashSet<PortablePoint> partition = new HashSet<PortablePoint>();
 
         pointsToVisit.add(startingPoint);
         partition.add(startingPoint);
         this.setPixels.remove(startingPoint);
 
         while (!pointsToVisit.empty()) {
-            Point p = pointsToVisit.pop();
-            ArrayList<Point> neighbours = this.getNeighbours(p);
-            for (Point neighbour : neighbours) {
+            PortablePoint p = pointsToVisit.pop();
+            ArrayList<PortablePoint> neighbours = this.getNeighbours(p);
+            for (PortablePoint neighbour : neighbours) {
                 if (!this.isPixelSet(neighbour)) continue;
                 //if (partition.contains(neighbour)) continue; unnecessary because if the pixel has been added to the partition already, it has also been removed from setPixels
 
@@ -62,17 +62,17 @@ public class ImagePartitioner {
         return new ImagePartition(partition);
     }
 
-    private boolean isPixelSet(Point p) {
+    private boolean isPixelSet(PortablePoint p) {
         return this.setPixels.contains(p);
     }
 
-    private ArrayList<Point> getNeighbours(Point p) {
-        ArrayList<Point> neighbours = new ArrayList<Point>();
+    private ArrayList<PortablePoint> getNeighbours(PortablePoint p) {
+        ArrayList<PortablePoint> neighbours = new ArrayList<PortablePoint>();
 
-        if (p.x + 1 < this.image.getWidth()) neighbours.add(new Point(p.x + 1, p.y));
-        if (p.x - 1 >= 0) neighbours.add(new Point(p.x - 1, p.y));
-        if (p.y + 1 < this.image.getHeight()) neighbours.add(new Point(p.x, p.y + 1));
-        if (p.y - 1 >= 0) neighbours.add(new Point(p.x, p.y - 1));
+        if (p.x + 1 < this.image.getWidth()) neighbours.add(new PortablePoint(p.x + 1, p.y));
+        if (p.x - 1 >= 0) neighbours.add(new PortablePoint(p.x - 1, p.y));
+        if (p.y + 1 < this.image.getHeight()) neighbours.add(new PortablePoint(p.x, p.y + 1));
+        if (p.y - 1 >= 0) neighbours.add(new PortablePoint(p.x, p.y - 1));
 
         if (this.mode == NeighbourSearchMode.HOR_VER_DIAG) {
             // TODO

@@ -1,31 +1,30 @@
 package de.dhbw.mbfl.imagedetection;
 
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.PartitionedImage;
-
-import java.awt.*;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
 
 /**
  * Created by florian on 20.02.15.
  */
 public class CalibrationInfo {
-    private Color yellow;
-    private Color red;
+    private AbstractColor yellow;
+    private AbstractColor red;
     private PartitionedImage partitions;
 
 
-    public Color getYellow() {
+    public AbstractColor getYellow() {
         return yellow;
     }
 
-    public void setYellow(Color yellow) {
+    public void setYellow(AbstractColor yellow) {
         this.yellow = yellow;
     }
 
-    public Color getRed() {
+    public AbstractColor getRed() {
         return red;
     }
 
-    public void setRed(Color red) {
+    public void setRed(AbstractColor red) {
         this.red = red;
     }
 

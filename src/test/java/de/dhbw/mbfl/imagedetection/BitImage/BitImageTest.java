@@ -1,45 +1,45 @@
 package de.dhbw.mbfl.imagedetection.BitImage;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortableColor;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortableRasterImage;
+import org.junit.Test;
+
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
-
-import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
-import de.dhbw.mbfl.imagedetection.BitImage.BitImageConverter;
-import org.junit.Test;
 
 public class BitImageTest {
 
     @Test
     public void testSimpleBitImage() {
-        BufferedImage img = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+        PortableRasterImage img = new PortableRasterImage(10, 10);
 
         BitImage instance = new BitImage(img, new BitImageConverter() {
             @Override
-            public boolean isPixelSet(Color c) {
+            public boolean isPixelSet(AbstractColor c) {
                 return false;
             }
         });
 
-        instance.setPixel(new Point(2, 8), true);
-        assertTrue(instance.getPixel(new Point(2, 8)));
-        assertFalse(instance.getPixel(new Point(2, 7)));
+        instance.setPixel(new PortablePoint(2, 8), true);
+        assertTrue(instance.getPixel(new PortablePoint(2, 8)));
+        assertFalse(instance.getPixel(new PortablePoint(2, 7)));
     }
 
     @Test
     public void testCachingMechanism() {
-        BufferedImage img = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-        img.setRGB(0, 0, new Color(255, 0, 0).getRGB());
-        img.setRGB(0, 1, new Color(0, 255, 0).getRGB());
-        img.setRGB(0, 2, new Color(255, 0, 0).getRGB());
-        img.setRGB(9, 9, new Color(0, 255, 0).getRGB());
+        PortableRasterImage img = new PortableRasterImage(10, 10);
+        img.setPixel(0, 0, new PortableColor(255, 0, 0));
+        img.setPixel(0, 1, new PortableColor(0, 255, 0));
+        img.setPixel(0, 2, new PortableColor(255, 0, 0));
+        img.setPixel(9, 9, new PortableColor(0, 255, 0));
 
         final MutableInteger counter = new MutableInteger();
         BitImage instance = new BitImage(img, new BitImageConverter() {
             @Override
-            public boolean isPixelSet(Color c) {
+            public boolean isPixelSet(AbstractColor c) {
                 counter.value++;
                 return false;
             }
@@ -50,41 +50,41 @@ public class BitImageTest {
 
     @Test
     public void testConversionCall() {
-        BufferedImage img = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-        img.setRGB(9, 9, new Color(0, 255, 0).getRGB());
+        PortableRasterImage img = new PortableRasterImage(10, 10);
+        img.setPixel(9, 9, new PortableColor(0, 255, 0));
 
         BitImage instance = new BitImage(img, new BitImageConverter() {
             @Override
-            public boolean isPixelSet(Color c) {
-                if (c.equals(Color.GREEN)) return true;
+            public boolean isPixelSet(AbstractColor c) {
+                if (c.equals(new PortableColor(0, 255, 0))) return true;
                 return false;
             }
         });
 
-        assertTrue(instance.getPixel(new Point(9, 9)));
+        assertTrue(instance.getPixel(new PortablePoint(9, 9)));
     }
 
     @Test
     public void testGetAllSetPixels() {
-        BufferedImage img = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-        int blue = new Color(0, 0, 255).getRGB();
-        img.setRGB(0, 0, blue);
-        img.setRGB(9, 9, blue);
-        img.setRGB(4, 4, blue);
+        PortableRasterImage img = new PortableRasterImage(10, 10);
+        PortableColor blue = new PortableColor(0, 0, 255);
+        img.setPixel(0, 0, blue);
+        img.setPixel(9, 9, blue);
+        img.setPixel(4, 4, blue);
 
         //Determine all blue pixels as "set", afterwards there should be 3 pixels set
         BitImage instance = new BitImage(img, new BitImageConverter() {
             @Override
-            public boolean isPixelSet(Color c) {
-                if (c.equals(Color.BLUE)) return true;
+            public boolean isPixelSet(AbstractColor c) {
+                if (c.equals(new PortableColor(0, 0, 255))) return true;
                 return false;
             }
         });
 
-        HashSet<Point> setPixels = instance.getAllSetPixels();
+        HashSet<PortablePoint> setPixels = instance.getAllSetPixels();
         assertEquals(3, setPixels.size());
-        assertTrue(instance.getPixel(new Point(4, 4)));
-        assertTrue(setPixels.contains(new Point(0, 0)));
+        assertTrue(instance.getPixel(new PortablePoint(4, 4)));
+        assertTrue(setPixels.contains(new PortablePoint(0, 0)));
     }
 
     //TODO Write tests for dilate() and erode()

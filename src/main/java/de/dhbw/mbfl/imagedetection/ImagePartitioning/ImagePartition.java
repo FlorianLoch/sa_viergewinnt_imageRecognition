@@ -1,34 +1,35 @@
 package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
-import java.awt.*;
+import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
+
 import java.util.Iterator;
 import java.util.Set;
 
 /**
  * Created by florian on 19.02.15.
  */
-public class ImagePartition implements Iterable<Point> {
+public class ImagePartition implements Iterable<PortablePoint> {
 
-    private Set<Point> pixels;
-    private Point centerCache;
+    private Set<PortablePoint> pixels;
+    private PortablePoint centerCache;
     private String tag;
 
-    ImagePartition(Set<Point> pixels) {
+    ImagePartition(Set<PortablePoint> pixels) {
         this.pixels = pixels;
     }
 
-    public Point getCenter() {
+    public PortablePoint getCenter() {
         if (this.centerCache == null) {
             int xSum = 0, ySum = 0;
 
-            for (Point p : this.pixels) {
+            for (PortablePoint p : this.pixels) {
                 xSum += p.x;
                 ySum += p.y;
             }
 
             int x = xSum / this.pixels.size();
             int y = ySum / this.pixels.size();
-            this.centerCache = new Point(x, y);
+            this.centerCache = new PortablePoint(x, y);
         }
 
         return this.centerCache;
@@ -43,7 +44,7 @@ public class ImagePartition implements Iterable<Point> {
     }
 
     @Override
-    public Iterator<Point> iterator() {
+    public Iterator<PortablePoint> iterator() {
         return pixels.iterator();
     }
 }

@@ -1,6 +1,6 @@
 package de.dhbw.mbfl.imagedetection.BitImage;
 
-import java.awt.*;
+import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
 
 /**
  * Created by florian on 20.02.15.
@@ -13,6 +13,6 @@ public interface BitImageConverter {
      * @param c
      * @return
      */
-    public boolean isPixelSet(Color c);
+    public boolean isPixelSet(AbstractColor c);
 
 }
