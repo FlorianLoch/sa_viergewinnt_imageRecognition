@@ -12,6 +12,8 @@ import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
 import de.dhbw.mbfl.jconnect4lib.board.Position;
 import de.dhbw.mbfl.jconnect4lib.board.Stone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -20,8 +22,11 @@ import java.io.IOException;
  */
 public class BoardDetector {
 
+    private static final Logger log = LoggerFactory.getLogger(BoardDetector.class);
     public static final int WINDOW_SIZE_FOR_AVG = 2;
     public static final double COLOR_EQUALITY_TOLERANCE = 70D;
+
+    private static long timerStartedAt = -1;
 
     private CalibrationInfo calibration;
 
@@ -30,13 +35,21 @@ public class BoardDetector {
     }
 
     public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows, boolean debugOutput) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
+        log.info("LOG00000: Calibration started!");
+        startTiming();
+
         CalibrationInfo info = new CalibrationInfo();
 
         AbstractColor yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
         AbstractColor redAvg = ImageUtils.averageColor(image, redSpot, WINDOW_SIZE_FOR_AVG);
 
+        long timeNeededForAverageColor = stopTiming();
+        log.info("LOG00020: Average colors computed after " + timeNeededForAverageColor + "ms");
+
         info.setYellow(yellowAvg);
         info.setRed(redAvg);
+
+        startTiming();
 
         BitImageConverter converter = new ColorBitImageConverter(new AbstractColor[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
         BitImage bitImage = new BitImage(image, converter);
@@ -44,29 +57,68 @@ public class BoardDetector {
             info.setAfterConversion(bitImage.toPortableRasterImage());
         }
 
-        bitImage = bitImage.erode(BitImage.buildMorphMatrix(15), 7, 7);
+        long timeNeededImageConversion = stopTiming();
+        log.info("LOG00030: Image converted to BitImage in " + timeNeededImageConversion + "ms");
+
+        startTiming();
+
+        byte[][] morphMatrix = BitImage.buildMorphMatrix(15);
+        bitImage = bitImage.erode(morphMatrix, 7, 7);
         if (debugOutput) {
             info.setAfterErotation(bitImage.toPortableRasterImage());
         }
 
-        bitImage = bitImage.dilate(BitImage.buildMorphMatrix(15), 7, 7);
+        long timeNeededForEroding = stopTiming();
+        log.info("LOG00040: Eroding completed after " + timeNeededForEroding + "ms");
+
+        startTiming();
+
+        bitImage = bitImage.dilate(morphMatrix, 7, 7);
         if (debugOutput) {
             info.setAfterDilatation(bitImage.toPortableRasterImage());
         }
 
+        long timeNeededForDilating = stopTiming();
+        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
+
+        startTiming();
+
         ImagePartitioner partitioner = new ImagePartitioner(bitImage);
         PartitionedImage partitions = partitioner.partition();
+
+        long timeNeededForPartitioning = stopTiming();
+        log.info("LOG00060: Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
 
         if (partitions.size() != columns * rows) {
             throw new ImageAnalysisException("In the given image " + partitions.size() + " fields haven been found. " +
                     "But " + columns * rows + " have been expected.");
         }
 
+        startTiming();
+
         partitions = partitions.sortPartitions(columns);
+
+        long timeNeededForSortingPartitions = stopTiming();
+        log.info("LOG00070: Sorting partitions done after " + timeNeededForSortingPartitions + "ms");
 
         info.setPartitions(partitions);
 
         return info;
+    }
+
+    private static void startTiming() {
+        timerStartedAt = System.currentTimeMillis();
+    }
+
+    private static long stopTiming() {
+        if (timerStartedAt == -1) {
+            throw new IllegalStateException("Timer has not been started before!");
+        }
+
+        long duration = System.currentTimeMillis() - timerStartedAt;
+        timerStartedAt = -1;
+
+        return duration;
     }
 
     public BoardDetector(CalibrationInfo calibration) {
