@@ -37,6 +37,10 @@ public class BitImage {
         this.pixels.set(i, state);
     }
 
+    public void setPixel(PortablePoint p) {
+        this.setPixel(p, true);
+    }
+
     public int getWidth() {
         return this.origImageWidth;
     }

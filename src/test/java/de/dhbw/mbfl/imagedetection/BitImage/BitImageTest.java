@@ -102,7 +102,7 @@ public class BitImageTest {
     }
 
     @Test
-    public void testDilation() {
+    public void testDilating() {
         BitImage image = new BitImage(5, 5);
         image.setPixel(new PortablePoint(2, 2), true);
         image.setPixel(new PortablePoint(4, 4), true); //This shall be ignored, because the morphMatrix cannot be moved here!
@@ -130,6 +130,53 @@ public class BitImageTest {
         assertEquals(false, image.getPixel(new PortablePoint(3, 0)));
         assertEquals(true , image.getPixel(new PortablePoint(3, 1)));
         assertEquals(true , image.getPixel(new PortablePoint(3, 2)));
+        assertEquals(true , image.getPixel(new PortablePoint(3, 3)));
+        assertEquals(false, image.getPixel(new PortablePoint(3, 4)));
+        assertEquals(false, image.getPixel(new PortablePoint(4, 0)));
+        assertEquals(false, image.getPixel(new PortablePoint(4, 1)));
+        assertEquals(false, image.getPixel(new PortablePoint(4, 2)));
+        assertEquals(false, image.getPixel(new PortablePoint(4, 3)));
+        assertEquals(false, image.getPixel(new PortablePoint(4, 4)));
+    }
+
+    @Test
+    public void testEroding() {
+        BitImage image = new BitImage(5, 5);
+
+        image.setPixel(new PortablePoint(0, 0));
+        image.setPixel(new PortablePoint(1, 1));
+        image.setPixel(new PortablePoint(2, 2));
+        image.setPixel(new PortablePoint(2, 3));
+        image.setPixel(new PortablePoint(2, 4));
+        image.setPixel(new PortablePoint(3, 2));
+        image.setPixel(new PortablePoint(3, 4));
+        image.setPixel(new PortablePoint(4, 2));
+        image.setPixel(new PortablePoint(4, 3));
+        image.setPixel(new PortablePoint(4, 4));
+
+        byte[][] morphMatrix = BitImage.buildMorphMatrix(3);
+        morphMatrix[1][1] = 0;
+
+        image = image.erode(morphMatrix, 1, 1);
+
+        assertEquals(false, image.getPixel(new PortablePoint(0, 0)));
+        assertEquals(false, image.getPixel(new PortablePoint(0, 1)));
+        assertEquals(false, image.getPixel(new PortablePoint(0, 2)));
+        assertEquals(false, image.getPixel(new PortablePoint(0, 3)));
+        assertEquals(false, image.getPixel(new PortablePoint(0, 4)));
+        assertEquals(false, image.getPixel(new PortablePoint(1, 0)));
+        assertEquals(false, image.getPixel(new PortablePoint(1, 1)));
+        assertEquals(false, image.getPixel(new PortablePoint(1, 2)));
+        assertEquals(false, image.getPixel(new PortablePoint(1, 3)));
+        assertEquals(false, image.getPixel(new PortablePoint(1, 4)));
+        assertEquals(false, image.getPixel(new PortablePoint(2, 0)));
+        assertEquals(false, image.getPixel(new PortablePoint(2, 1)));
+        assertEquals(false, image.getPixel(new PortablePoint(2, 2)));
+        assertEquals(false, image.getPixel(new PortablePoint(2, 3)));
+        assertEquals(false, image.getPixel(new PortablePoint(2, 4)));
+        assertEquals(false, image.getPixel(new PortablePoint(3, 0)));
+        assertEquals(false, image.getPixel(new PortablePoint(3, 1)));
+        assertEquals(false, image.getPixel(new PortablePoint(3, 2)));
         assertEquals(true , image.getPixel(new PortablePoint(3, 3)));
         assertEquals(false, image.getPixel(new PortablePoint(3, 4)));
         assertEquals(false, image.getPixel(new PortablePoint(4, 0)));
