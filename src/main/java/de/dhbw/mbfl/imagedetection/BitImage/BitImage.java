@@ -68,7 +68,7 @@ public class BitImage {
                 PortablePoint p = new PortablePoint(i, j);
                 if (!this.getPixel(p)) continue;
 
-                copy.setPixel(p, true);
+                //copy.setPixel(p, true);
 
                 for (int h = 0; h < dilateMatrix.length; h++) {
                     for (int k = 0; k < dilateMatrix[0].length; k++) {
