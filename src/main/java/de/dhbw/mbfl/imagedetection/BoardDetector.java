@@ -24,21 +24,19 @@ public class BoardDetector {
 
     private static final Logger log = LoggerFactory.getLogger(BoardDetector.class);
     public static final int WINDOW_SIZE_FOR_AVG = 2;
-    public static final double COLOR_EQUALITY_TOLERANCE = 70D;
+    public static final double COLOR_EQUALITY_TOLERANCE = 60D;
 
     private static long timerStartedAt = -1;
 
     private CalibrationInfo calibration;
 
     public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
-        return calibrate(image, yellowSpot, redSpot, columns, rows, false);
+        return calibrate(new CalibrationInfo(), image, yellowSpot, redSpot, columns, rows, false);
     }
 
-    public static CalibrationInfo calibrate(AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows, boolean debugOutput) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
+    public static CalibrationInfo calibrate(CalibrationInfo calib, AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows, boolean debugOutput) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
         log.info("LOG00000: Calibration started!");
         startTiming();
-
-        CalibrationInfo info = new CalibrationInfo();
 
         AbstractColor yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
         AbstractColor redAvg = ImageUtils.averageColor(image, redSpot, WINDOW_SIZE_FOR_AVG);
@@ -46,15 +44,15 @@ public class BoardDetector {
         long timeNeededForAverageColor = stopTiming();
         log.info("LOG00020: Average colors computed after " + timeNeededForAverageColor + "ms");
 
-        info.setYellow(yellowAvg);
-        info.setRed(redAvg);
+        calib.setYellow(yellowAvg);
+        calib.setRed(redAvg);
 
         startTiming();
 
         BitImageConverter converter = new ColorBitImageConverter(new AbstractColor[]{yellowAvg, redAvg}, COLOR_EQUALITY_TOLERANCE);
         BitImage bitImage = new BitImage(image, converter);
         if (debugOutput) {
-            info.setAfterConversion(bitImage.toPortableRasterImage());
+            calib.setAfterConversion(bitImage.toPortableRasterImage());
         }
 
         long timeNeededImageConversion = stopTiming();
@@ -65,7 +63,7 @@ public class BoardDetector {
         byte[][] morphMatrix = BitImage.buildMorphMatrix(15);
         bitImage = bitImage.erode(morphMatrix, 7, 7);
         if (debugOutput) {
-            info.setAfterErotation(bitImage.toPortableRasterImage());
+            calib.setAfterErotation(bitImage.toPortableRasterImage());
         }
 
         long timeNeededForEroding = stopTiming();
@@ -75,7 +73,7 @@ public class BoardDetector {
 
         bitImage = bitImage.dilate(morphMatrix, 7, 7);
         if (debugOutput) {
-            info.setAfterDilatation(bitImage.toPortableRasterImage());
+            calib.setAfterDilatation(bitImage.toPortableRasterImage());
         }
 
         long timeNeededForDilating = stopTiming();
@@ -101,9 +99,9 @@ public class BoardDetector {
         long timeNeededForSortingPartitions = stopTiming();
         log.info("LOG00070: Sorting partitions done after " + timeNeededForSortingPartitions + "ms");
 
-        info.setPartitions(partitions);
+        calib.setPartitions(partitions);
 
-        return info;
+        return calib;
     }
 
     private static void startTiming() {

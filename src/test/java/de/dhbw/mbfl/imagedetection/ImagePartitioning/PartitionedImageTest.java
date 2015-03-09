@@ -1,5 +1,6 @@
 package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
+import de.dhbw.mbfl.imagedetection.ImageAnalysisException;
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class PartitionedImageTest {
 
     @Test
-    public void testSortPartitions() {
+    public void testSortPartitions() throws ImageAnalysisException {
         PartitionedImage partImg = new PartitionedImage();
         HashSet<PortablePoint> part1 = new HashSet<PortablePoint>();
         HashSet<PortablePoint> part2 = new HashSet<PortablePoint>();

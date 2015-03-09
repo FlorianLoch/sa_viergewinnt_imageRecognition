@@ -17,7 +17,7 @@ public class BitImage {
     public static int MORPHOLOGICAL_5_SQUARE_MATRIX_Y_CENTER = 2;
 
     public BitImage(AbstractRasterImage image, BitImageConverter converter) {
-        this.pixels = new BitSet(image.getWidth() * image.getWidth());
+        this.pixels = new BitSet(image.getWidth() * image.getHeight());
         this.origImageWidth = image.getWidth();
         this.convertFromAbstractRasterImage(image, converter);
     }

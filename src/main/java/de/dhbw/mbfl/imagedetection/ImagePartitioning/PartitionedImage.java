@@ -1,5 +1,7 @@
 package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
+import de.dhbw.mbfl.imagedetection.ImageAnalysisException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,9 +42,9 @@ public class PartitionedImage implements Iterable<ImagePartition> {
      * Sorts the partitions in a way that the left-bottom positioned
      * partition is first in the list and the one positioned top-right is the last one
      */
-    public PartitionedImage sortPartitions(int expectedPartitionsPerRow) {
+    public PartitionedImage sortPartitions(int expectedPartitionsPerRow) throws ImageAnalysisException {
         if (this.size() % expectedPartitionsPerRow != 0) {
-            throw new IndexOutOfBoundsException("The amount of found partitions is not a multiple of " + expectedPartitionsPerRow);
+            throw new ImageAnalysisException("The amount of found partitions is not a multiple of " + expectedPartitionsPerRow);
         }
 
         PartitionedImage result = new PartitionedImage();
