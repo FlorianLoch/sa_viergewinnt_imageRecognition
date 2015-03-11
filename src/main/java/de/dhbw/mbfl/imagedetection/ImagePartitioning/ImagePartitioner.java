@@ -4,6 +4,7 @@ import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Stack;
 

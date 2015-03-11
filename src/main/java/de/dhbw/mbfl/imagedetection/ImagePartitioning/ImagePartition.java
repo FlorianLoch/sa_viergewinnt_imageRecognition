@@ -35,6 +35,10 @@ public class ImagePartition implements Iterable<PortablePoint> {
         return this.centerCache;
     }
 
+    public int size() {
+        return this.pixels.size();
+    }
+
     public String getTag() {
         return this.tag;
     }

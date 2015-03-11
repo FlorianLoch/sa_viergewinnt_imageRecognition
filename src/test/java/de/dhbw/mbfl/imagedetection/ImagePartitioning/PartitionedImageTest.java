@@ -1,5 +1,6 @@
 package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
+import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
 import de.dhbw.mbfl.imagedetection.ImageAnalysisException;
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
 import org.junit.Test;
@@ -36,4 +37,27 @@ public class PartitionedImageTest {
         assertEquals(new PortablePoint(2, 2), partImg.get(3).getCenter());
     }
 
+    @Test
+    public void filterForNBiggestPartitions() {
+        PartitionedImage instance = new PartitionedImage();
+        instance.add(new ImagePartition(new HashSet<PortablePoint>(){{
+            add(new PortablePoint(0, 0));
+            add(new PortablePoint(1, 1));
+            add(new PortablePoint(2, 2));
+        }}));
+        instance.add(new ImagePartition(new HashSet<PortablePoint>(){{
+            add(new PortablePoint(1, 1));
+            add(new PortablePoint(2, 2));
+        }}));
+        instance.add(new ImagePartition(new HashSet<PortablePoint>(){{
+            add(new PortablePoint(1, 1));
+        }}));
+
+        assertEquals(3, instance.size());
+
+        instance.filterForNBiggestPartitions(1);
+
+        assertEquals(1, instance.size());
+        assertEquals(new PortablePoint(1, 1), instance.get(0).getCenter());
+    }
 }

@@ -38,6 +38,43 @@ public class PartitionedImage implements Iterable<ImagePartition> {
         return this.partitions.iterator();
     }
 
+    public ImagePartition remove(int index) {
+        return partitions.remove(index);
+    }
+
+    public boolean remove(Object o) {
+        return partitions.remove(o);
+    }
+
+    public void filterForNBiggestPartitions(int n) {
+        int delta = this.size() - n;
+
+        if (delta <= 0) return;
+
+        while (delta > 0) {
+            removeSmallestPartition();
+            delta--;
+        }
+    }
+
+    private void removeSmallestPartition() {
+        ImagePartition smallest = this.getSmallesPartition();
+        this.remove(smallest);
+    }
+
+    public ImagePartition getSmallesPartition() {
+        ImagePartition smallest = Collections.min(this.partitions, new Comparator<ImagePartition>() {
+            @Override
+            public int compare(ImagePartition o1, ImagePartition o2) {
+                if (o1.size() < o2.size()) return -1;
+                if (o1.size() == o2.size()) return 0;
+                return 1;
+            }
+        });
+
+        return smallest;
+    }
+
     /**
      * Sorts the partitions in a way that the left-bottom positioned
      * partition is first in the list and the one positioned top-right is the last one

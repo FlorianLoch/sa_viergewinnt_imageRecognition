@@ -61,7 +61,7 @@ public class BoardDetector {
         startTiming();
 
         byte[][] morphMatrix = BitImage.buildMorphMatrix(15);
-        bitImage = bitImage.erode(morphMatrix, 7, 7);
+        bitImage = bitImage.erode(morphMatrix, 10, 10 );
         if (debugOutput) {
             calib.setAfterErotation(bitImage.toPortableRasterImage());
         }
@@ -84,11 +84,13 @@ public class BoardDetector {
         ImagePartitioner partitioner = new ImagePartitioner(bitImage);
         PartitionedImage partitions = partitioner.partition();
 
+        partitions.filterForNBiggestPartitions(columns * rows);
+
         long timeNeededForPartitioning = stopTiming();
         log.info("LOG00060: Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
 
         if (partitions.size() != columns * rows) {
-            throw new ImageAnalysisException("In the given image " + partitions.size() + " fields haven been found. " +
+            throw new ImageAnalysisException("In the given image only " + partitions.size() + " fields haven been found. " +
                     "But " + columns * rows + " have been expected.");
         }
 
