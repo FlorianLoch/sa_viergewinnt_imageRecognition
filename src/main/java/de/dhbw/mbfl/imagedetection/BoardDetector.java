@@ -69,15 +69,15 @@ public class BoardDetector {
         long timeNeededForEroding = stopTiming();
         log.info("LOG00040: Eroding completed after " + timeNeededForEroding + "ms");
 
-        startTiming();
-
-        bitImage = bitImage.dilate(morphMatrix, 7, 7);
-        if (debugOutput) {
-            calib.setAfterDilatation(bitImage.toPortableRasterImage());
-        }
-
-        long timeNeededForDilating = stopTiming();
-        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
+//        startTiming();
+//
+//        bitImage = bitImage.dilate(morphMatrix, 7, 7);
+//        if (debugOutput) {
+//            calib.setAfterDilatation(bitImage.toPortableRasterImage());
+//        }
+//
+//        long timeNeededForDilating = stopTiming();
+//        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
 
         startTiming();
 

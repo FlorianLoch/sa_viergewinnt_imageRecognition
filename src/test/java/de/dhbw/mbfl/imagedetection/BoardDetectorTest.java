@@ -54,14 +54,12 @@ public class BoardDetectorTest {
         //Write all images to disk
         ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterConversion()), "png", new File("after_conversion.png"));
         ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterErotation()), "png", new File("after_eroding.png"));
-        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterDilatation()), "png", new File("after_dilating.png"));
 
         long endTime = System.currentTimeMillis();
         System.out.println("Calibration took " + (endTime - startTime) + " ms");
 
         assertNotNull(calibration.getAfterConversion());
         assertNotNull(calibration.getAfterErotation());
-        assertNotNull(calibration.getAfterDilatation());
 
         BoardDetector detector = new BoardDetector(calibration);
 
