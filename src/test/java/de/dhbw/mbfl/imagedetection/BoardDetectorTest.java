@@ -3,44 +3,56 @@ package de.dhbw.mbfl.imagedetection;
 import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractColor;
 import de.dhbw.mbfl.imagedetection.platformIndependence.AbstractRasterImage;
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
-import de.dhbw.mbfl.imagedetection.platformIndependence.PortableRasterImage;
 import de.dhbw.mbfl.jconnect4lib.board.Board;
-import de.dhbw.mbfl.jconnect4lib.board.Position;
-import de.dhbw.mbfl.jconnect4lib.board.Stone;
+import de.dhbw.mbfl.jconnect4lib.board.BoardUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class BoardDetectorTest {
+    private static int counter = 0;
+    final int COLUMNS = 7;
+    final int ROWS = 6;
+
+    private String calibrationImagePath;
+    private String imagePath;
+    private String expectedBoardAllocation;
+    private PortablePoint yellowSpot;
+    private PortablePoint redSpot;
+
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {"sample_images/captured_with_app.jpg", "", "", new PortablePoint(314, 206), new PortablePoint(242, 196)},
+                {"sample_images/real_game_calibration_small.png", "", "", new PortablePoint(339, 174), new PortablePoint(337, 236)},
+                {"sample_images/real_game_2_calib.jpg", "", "", new PortablePoint(318, 138), new PortablePoint(244, 58)}
+        });
+    }
+
+    public BoardDetectorTest(String calibrationImagePath, String imagePath, String expectedBoardAllocation, PortablePoint yellowSpot, PortablePoint redSpot) {
+        this.calibrationImagePath = calibrationImagePath;
+        this.imagePath = imagePath;
+        this.expectedBoardAllocation = expectedBoardAllocation;
+        this.yellowSpot = yellowSpot;
+        this.redSpot = redSpot;
+    }
 
     @Test
-    public void overallTest() throws Exception {
-        final String IMAGE_PATH = "sample_images/captured_with_app.jpg"; //sample_images/real_game_calibration_small.png
+    public void testCalibrationAndBoardDetection() throws Exception {
         CalibrationInfo calibration = new CalibrationInfo();
 
-        Board expected = new Board();
-        expected.addStone("A1");
-        expected.addStone("C1");
-        expected.addStone("C2");
-        expected.addStone(new Position("D1"), Stone.YELLOW);
-
-        JVMImage calibrationImage = new JVMImage(ImageIO.read(new File(IMAGE_PATH)));
-        JVMImage sampleImageForDetection = new JVMImage(ImageIO.read(new File(IMAGE_PATH)));
-
-//        PortablePoint yellowSpot = new PortablePoint(272, 177);
-//        PortablePoint redSpot = new PortablePoint(403, 171);
-        PortablePoint yellowSpot = new PortablePoint(314, 206);
-        PortablePoint redSpot = new PortablePoint(242, 196);
-
-        final int COLUMNS = 7;
-        final int ROWS = 6;
+        JVMImage calibrationImage = new JVMImage(ImageIO.read(new File(this.calibrationImagePath)));
 
         long startTime = System.currentTimeMillis();
 
@@ -49,28 +61,38 @@ public class BoardDetectorTest {
         }
         catch (ImageAnalysisException e) {
             //throw new Exception("Error in BoardDetector.calibrate()", e);
+            e.printStackTrace();
         }
 
         //Write all images to disk
-        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterConversion()), "png", new File("after_conversion.png"));
-        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterErotation()), "png", new File("after_eroding.png"));
+        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterConversion()), "png", new File(counter + "_after_conversion.png"));
+        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterErotation()), "png", new File(counter + "_after_eroding.png"));
+        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterDilatation()), "png", new File(counter + "_after_dilating.png"));
+
+
+        counter++;
 
         long endTime = System.currentTimeMillis();
         System.out.println("Calibration took " + (endTime - startTime) + " ms");
 
         assertNotNull(calibration.getAfterConversion());
         assertNotNull(calibration.getAfterErotation());
+        assertNotNull(calibration.getPartitions());
+        assertEquals(42, calibration.getPartitions().size());
+
+        if (this.imagePath.equals("") || this.expectedBoardAllocation.equals("")) {
+            return;
+        }
+
+        JVMImage image = new JVMImage(ImageIO.read(new File(this.imagePath)));
+
+        Board expectedBoard = new Board();
+        BoardUtils.addStonesToBoard(expectedBoard, this.expectedBoardAllocation);
 
         BoardDetector detector = new BoardDetector(calibration);
+        Board detectedBoard = detector.detectBoardAllocation(image);
 
-        startTime = System.currentTimeMillis();
-        Board board = detector.detectBoardAllocation(sampleImageForDetection);
-        endTime = System.currentTimeMillis();
-        System.out.println("Detection took " + (endTime - startTime) + " ms");
-
-        System.out.println(board);
-
-        //assertTrue(expected.areBoardOccupationsEqual(board));
+        assertTrue(expectedBoard.areBoardOccupationsEqual(detectedBoard));
     }
 
     private static BufferedImage abstractRasterImageToBufferedImage(AbstractRasterImage ari) {

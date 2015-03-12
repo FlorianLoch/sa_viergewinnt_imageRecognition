@@ -24,7 +24,7 @@ public class BoardDetector {
 
     private static final Logger log = LoggerFactory.getLogger(BoardDetector.class);
     public static final int WINDOW_SIZE_FOR_AVG = 2;
-    public static final double COLOR_EQUALITY_TOLERANCE = 60D;
+    public static final double COLOR_EQUALITY_TOLERANCE = 65D;
 
     private static long timerStartedAt = -1;
 
@@ -69,15 +69,15 @@ public class BoardDetector {
         long timeNeededForEroding = stopTiming();
         log.info("LOG00040: Eroding completed after " + timeNeededForEroding + "ms");
 
-//        startTiming();
-//
-//        bitImage = bitImage.dilate(morphMatrix, 7, 7);
-//        if (debugOutput) {
-//            calib.setAfterDilatation(bitImage.toPortableRasterImage());
-//        }
-//
-//        long timeNeededForDilating = stopTiming();
-//        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
+        startTiming();
+
+        bitImage = bitImage.dilate(morphMatrix, 7, 7);
+        if (debugOutput) {
+            calib.setAfterDilatation(bitImage.toPortableRasterImage());
+        }
+
+        long timeNeededForDilating = stopTiming();
+        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
 
         startTiming();
 
@@ -89,7 +89,7 @@ public class BoardDetector {
         long timeNeededForPartitioning = stopTiming();
         log.info("LOG00060: Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
 
-        if (partitions.size() != columns * rows) {
+        if (partitions.size() < columns * rows) {
             throw new ImageAnalysisException("In the given image only " + partitions.size() + " fields haven been found. " +
                     "But " + columns * rows + " have been expected.");
         }

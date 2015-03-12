@@ -13,6 +13,7 @@ public class CalibrationInfo {
     private PartitionedImage partitions;
     private AbstractRasterImage afterConversion;
     private AbstractRasterImage afterErotation;
+    private AbstractRasterImage afterDilatation;
 
     public AbstractColor getYellow() {
         return yellow;
@@ -54,4 +55,11 @@ public class CalibrationInfo {
         this.afterErotation = afterErotation;
     }
 
+    public AbstractRasterImage getAfterDilatation() {
+        return afterDilatation;
+    }
+
+    public void setAfterDilatation(AbstractRasterImage afterDilatation) {
+        this.afterDilatation = afterDilatation;
+    }
 }
