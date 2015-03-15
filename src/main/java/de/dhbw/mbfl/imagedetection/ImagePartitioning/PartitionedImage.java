@@ -57,6 +57,36 @@ public class PartitionedImage implements Iterable<ImagePartition> {
         }
     }
 
+    /**
+     *
+     * @param acceptedDeviationPerc Value between 0-1.0
+     */
+    public void filterByDeviationFromMedian(double acceptedDeviationPerc) {
+        int median = this.getSizeOfMedianElement();
+        double acceptedDeviation = median * acceptedDeviationPerc;
+
+        int avgSize = this.getSizeOfMedianElement();
+
+        ArrayList<ImagePartition> filteredPartitions = new ArrayList<ImagePartition>();
+
+        for (ImagePartition partition : this.partitions) {
+            double deviation = Math.abs(avgSize - partition.size());
+            if (deviation <= acceptedDeviation) {
+                filteredPartitions.add(partition);
+            }
+        }
+
+        this.partitions = filteredPartitions;
+    }
+
+    public int getSizeOfMedianElement() {
+        PartitionedImage sortedClone = this.sortPartitionsBySize();
+
+        int medianIndex = (int) Math.floor(sortedClone.size() / 2);
+
+        return sortedClone.get(medianIndex).size();
+    }
+
     private void removeSmallestPartition() {
         ImagePartition smallest = this.getSmallesPartition();
         this.remove(smallest);
@@ -79,7 +109,7 @@ public class PartitionedImage implements Iterable<ImagePartition> {
      * Sorts the partitions in a way that the left-bottom positioned
      * partition is first in the list and the one positioned top-right is the last one
      */
-    public PartitionedImage sortPartitions(int expectedPartitionsPerRow) throws ImageAnalysisException {
+    public PartitionedImage sortPartitionsAccordingToBoard(int expectedPartitionsPerRow) throws ImageAnalysisException {
         if (this.size() % expectedPartitionsPerRow != 0) {
             throw new ImageAnalysisException("The amount of found partitions is not a multiple of " + expectedPartitionsPerRow);
         }
@@ -125,5 +155,20 @@ public class PartitionedImage implements Iterable<ImagePartition> {
         }
 
         return result;
+    }
+
+    public PartitionedImage sortPartitionsBySize() {
+        PartitionedImage clone = new PartitionedImage(this.partitions);
+
+        Collections.sort(clone.partitions, new Comparator<ImagePartition>() {
+            @Override
+            public int compare(ImagePartition o1, ImagePartition o2) {
+                if (o1.size() < o2.size()) return -1;
+                if (o1.size() == o2.size()) return 0;
+                return +1;
+            }
+        });
+
+        return clone;
     }
 }

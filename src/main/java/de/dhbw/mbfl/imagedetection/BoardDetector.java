@@ -96,7 +96,7 @@ public class BoardDetector {
 
         startTiming();
 
-        partitions = partitions.sortPartitions(columns);
+        partitions = partitions.sortPartitionsAccordingToBoard(columns);
 
         long timeNeededForSortingPartitions = stopTiming();
         log.info("LOG00070: Sorting partitions done after " + timeNeededForSortingPartitions + "ms");
