@@ -24,7 +24,8 @@ public class BoardDetector {
 
     private static final Logger log = LoggerFactory.getLogger(BoardDetector.class);
     public static final int WINDOW_SIZE_FOR_AVG = 2;
-    public static final double COLOR_EQUALITY_TOLERANCE = 65D;
+    public static final double COLOR_EQUALITY_TOLERANCE = 70D;
+    private static final double DEVIATION_FROM_MEDIAN = 0.8;
 
     private static long timerStartedAt = -1;
 
@@ -84,7 +85,10 @@ public class BoardDetector {
         ImagePartitioner partitioner = new ImagePartitioner(bitImage);
         PartitionedImage partitions = partitioner.partition();
 
+        partitions.filterByDeviationFromMedian(DEVIATION_FROM_MEDIAN);
         partitions.filterForNBiggestPartitions(columns * rows);
+
+        calib.setPartitions(partitions);
 
         long timeNeededForPartitioning = stopTiming();
         log.info("LOG00060: Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
