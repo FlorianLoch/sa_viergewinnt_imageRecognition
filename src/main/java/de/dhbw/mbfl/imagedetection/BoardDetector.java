@@ -61,7 +61,7 @@ public class BoardDetector {
 
         startTiming();
 
-        byte[][] morphMatrix = BitImage.buildMorphMatrix(15);
+        byte[][] morphMatrix = BitImage.buildMorphMatrix(7);
         bitImage = bitImage.erode(morphMatrix, 10, 10 );
         if (debugOutput) {
             calib.setAfterErotation(bitImage.toPortableRasterImage());
