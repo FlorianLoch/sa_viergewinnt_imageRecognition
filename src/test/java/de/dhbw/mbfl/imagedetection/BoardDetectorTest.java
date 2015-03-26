@@ -84,6 +84,8 @@ public class BoardDetectorTest {
         assertNotNull(calibration.getPartitions());
         assertEquals(42, calibration.getPartitions().size());
 
+        assertEquals(calibrationImage.getHeight(), calibration.getAfterDilatation().getHeight());
+
         if (this.imagePath.equals("") || this.expectedBoardAllocation.equals("")) {
             return;
         }

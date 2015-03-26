@@ -62,7 +62,8 @@ public class BoardDetector {
         startTiming();
 
         byte[][] morphMatrix = BitImage.buildMorphMatrix(7);
-        bitImage = bitImage.erode(morphMatrix, 10, 10 );
+        PortablePoint morphCenter = new PortablePoint(3, 3);
+        bitImage = bitImage.erode(morphMatrix, morphCenter);
         if (debugOutput) {
             calib.setAfterErotation(bitImage.toPortableRasterImage());
         }
@@ -72,7 +73,7 @@ public class BoardDetector {
 
         startTiming();
 
-        bitImage = bitImage.dilate(morphMatrix, 7, 7);
+        bitImage = bitImage.dilate(morphMatrix, morphCenter);
         if (debugOutput) {
             calib.setAfterDilatation(bitImage.toPortableRasterImage());
         }

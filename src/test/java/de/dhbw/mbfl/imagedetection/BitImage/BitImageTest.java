@@ -48,6 +48,18 @@ public class BitImageTest {
         assertEquals(3, counter.value);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void getPixelShallThrowOOBE() {
+        BitImage image = new BitImage(5, 5);
+        image.getPixel(new PortablePoint(6, 6));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void setPixelShallThrowOOBE() {
+        BitImage image = new BitImage(5, 5);
+        image.setPixel(new PortablePoint(6, 6));
+    }
+
     @Test
     public void testConversionCall() {
         PortableRasterImage img = new PortableRasterImage(10, 10);
@@ -103,14 +115,17 @@ public class BitImageTest {
 
     @Test
     public void testDilating() {
-        BitImage image = new BitImage(5, 5);
-        image.setPixel(new PortablePoint(2, 2), true);
-        image.setPixel(new PortablePoint(4, 4), true); //This shall be ignored, because the morphMatrix cannot be moved here!
+        BitImage origImage = new BitImage(5, 5);
+        origImage.setPixel(new PortablePoint(2, 2), true);
+        origImage.setPixel(new PortablePoint(4, 4), true); //This shall be ignored, because the morphMatrix cannot be moved here!
 
         byte[][] morphMatrix = BitImage.buildMorphMatrix(3);
         morphMatrix[1][1] = 0; //Center point
 
-        image = image.dilate(morphMatrix, 1, 1);
+        BitImage image = origImage.dilate(morphMatrix, new PortablePoint(1, 1));
+
+        assertEquals(origImage.getHeight(), image.getHeight());
+        assertEquals(origImage.getWidth(), image.getWidth());
 
         assertEquals(false, image.getPixel(new PortablePoint(0, 0)));
         assertEquals(false, image.getPixel(new PortablePoint(0, 1)));
@@ -141,23 +156,26 @@ public class BitImageTest {
 
     @Test
     public void testEroding() {
-        BitImage image = new BitImage(5, 5);
+        BitImage origImage = new BitImage(5, 5);
 
-        image.setPixel(new PortablePoint(0, 0));
-        image.setPixel(new PortablePoint(1, 1));
-        image.setPixel(new PortablePoint(2, 2));
-        image.setPixel(new PortablePoint(2, 3));
-        image.setPixel(new PortablePoint(2, 4));
-        image.setPixel(new PortablePoint(3, 2));
-        image.setPixel(new PortablePoint(3, 4));
-        image.setPixel(new PortablePoint(4, 2));
-        image.setPixel(new PortablePoint(4, 3));
-        image.setPixel(new PortablePoint(4, 4));
+        origImage.setPixel(new PortablePoint(0, 0));
+        origImage.setPixel(new PortablePoint(1, 1));
+        origImage.setPixel(new PortablePoint(2, 2));
+        origImage.setPixel(new PortablePoint(2, 3));
+        origImage.setPixel(new PortablePoint(2, 4));
+        origImage.setPixel(new PortablePoint(3, 2));
+        origImage.setPixel(new PortablePoint(3, 4));
+        origImage.setPixel(new PortablePoint(4, 2));
+        origImage.setPixel(new PortablePoint(4, 3));
+        origImage.setPixel(new PortablePoint(4, 4));
 
         byte[][] morphMatrix = BitImage.buildMorphMatrix(3);
         morphMatrix[1][1] = 0;
 
-        image = image.erode(morphMatrix, 1, 1);
+        BitImage image = origImage.erode(morphMatrix, new PortablePoint(1, 1));
+
+        assertEquals(origImage.getHeight(), image.getHeight());
+        assertEquals(origImage.getWidth(), image.getWidth());
 
         assertEquals(false, image.getPixel(new PortablePoint(0, 0)));
         assertEquals(false, image.getPixel(new PortablePoint(0, 1)));
@@ -184,6 +202,39 @@ public class BitImageTest {
         assertEquals(false, image.getPixel(new PortablePoint(4, 2)));
         assertEquals(false, image.getPixel(new PortablePoint(4, 3)));
         assertEquals(false, image.getPixel(new PortablePoint(4, 4)));
+    }
+
+    @Test
+    public void expectMorphOpToThrowOOBE() {
+        BitImage image = new BitImage(5, 5);
+        image.setPixel(new PortablePoint(2, 2), true);
+        image.setPixel(new PortablePoint(4, 4), true); //This shall be ignored, because the morphMatrix cannot be moved here!
+
+        byte[][] morphMatrix = BitImage.buildMorphMatrix(3);
+        morphMatrix[1][1] = 0; //Center point
+
+        boolean exceptionThrown = false;
+
+        try {
+            image.dilate(morphMatrix, new PortablePoint(3, 2));
+        }
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        assertTrue(exceptionThrown);
+
+        exceptionThrown = false;
+
+        try {
+            image.erode(morphMatrix, new PortablePoint(-1, 1));
+        }
+        catch (IndexOutOfBoundsException e) {
+            exceptionThrown = true;
+        }
+
+        assertTrue(exceptionThrown);
+
     }
 
     private class MutableInteger {
