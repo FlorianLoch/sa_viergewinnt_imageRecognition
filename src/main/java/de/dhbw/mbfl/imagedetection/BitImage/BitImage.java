@@ -35,7 +35,7 @@ public class BitImage {
     }
 
     public boolean getPixel(PortablePoint p) {
-        if (!isPointWithInBounds(p)) {
+        if (!isPointWithinBounds(p)) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -43,12 +43,12 @@ public class BitImage {
         return this.pixels.get(i);
     }
 
-    private boolean isPointWithInBounds(PortablePoint p) {
+    private boolean isPointWithinBounds(PortablePoint p) {
         return (p.x < this.getWidth() && p.y < this.getHeight());
     };
 
     public void setPixel(PortablePoint p, boolean state) {
-        if (!isPointWithInBounds(p)) {
+        if (!isPointWithinBounds(p)) {
             throw new IndexOutOfBoundsException();
         }
 

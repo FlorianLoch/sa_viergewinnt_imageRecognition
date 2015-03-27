@@ -71,8 +71,7 @@ public class BoardDetectorTest {
         ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterConversion()), "png", new File(counter + "_after_conversion.png"));
         ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterErotation()), "png", new File(counter + "_after_eroding.png"));
         ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterDilatation()), "png", new File(counter + "_after_dilating.png"));
-        BufferedImage markedImage = markPartitionsInImage(abstractRasterImageToBufferedImage(calibration.getAfterDilatation()), calibration.getPartitions());
-        ImageIO.write(markedImage, "png", new File(counter + "_after_processing.png"));
+        ImageIO.write(abstractRasterImageToBufferedImage(calibration.getAfterProcessing()), "png", new File(counter + "_after_processing.png"));
 
         counter++;
 
@@ -113,20 +112,6 @@ public class BoardDetectorTest {
         }
 
         return bi;
-    }
-
-    private static BufferedImage markPartitionsInImage(BufferedImage img, PartitionedImage partitions) {
-        Graphics g = img.getGraphics();
-        g.setColor(Color.RED);
-
-        for (int i = 0; i < partitions.size(); i++) {
-            ImagePartition partition = partitions.get(i);
-            PortablePoint center = partition.getCenter();
-
-            g.fillRect(center.x - 2, center.y - 2, 4, 4);
-        }
-
-        return img;
     }
 
     private class JVMImage extends AbstractRasterImage {

@@ -17,7 +17,6 @@ public class BitImageTest {
         PortableRasterImage img = new PortableRasterImage(10, 10);
 
         BitImage instance = new BitImage(img, new BitImageConverter() {
-            @Override
             public boolean isPixelSet(AbstractColor c) {
                 return false;
             }
@@ -38,7 +37,6 @@ public class BitImageTest {
 
         final MutableInteger counter = new MutableInteger();
         BitImage instance = new BitImage(img, new BitImageConverter() {
-            @Override
             public boolean isPixelSet(AbstractColor c) {
                 counter.value++;
                 return false;
@@ -66,7 +64,6 @@ public class BitImageTest {
         img.setPixel(9, 9, new PortableColor(0, 255, 0));
 
         BitImage instance = new BitImage(img, new BitImageConverter() {
-            @Override
             public boolean isPixelSet(AbstractColor c) {
                 if (c.equals(new PortableColor(0, 255, 0))) return true;
                 return false;
@@ -86,7 +83,6 @@ public class BitImageTest {
 
         //Determine all blue pixels as "set", afterwards there should be 3 pixels set
         BitImage instance = new BitImage(img, new BitImageConverter() {
-            @Override
             public boolean isPixelSet(AbstractColor c) {
                 if (c.equals(new PortableColor(0, 0, 255))) return true;
                 return false;
