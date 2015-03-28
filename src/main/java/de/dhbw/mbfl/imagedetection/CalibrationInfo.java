@@ -4,9 +4,6 @@ import de.dhbw.mbfl.imagedetection.ImagePartitioning.ImagePartition;
 import de.dhbw.mbfl.imagedetection.ImagePartitioning.PartitionedImage;
 import de.dhbw.mbfl.imagedetection.platformIndependence.*;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 /**
  * Created by florian on 20.02.15.
  */
@@ -18,6 +15,24 @@ public class CalibrationInfo {
     private AbstractRasterImage afterErotation;
     private AbstractRasterImage afterDilatation;
     private AbstractRasterImage afterProcessing;
+    private PortablePoint yellowSpot;
+    private PortablePoint redSpot;
+
+    public PortablePoint getYellowSpot() {
+        return yellowSpot;
+    }
+
+    public void setYellowSpot(PortablePoint yellowSpot) {
+        this.yellowSpot = yellowSpot;
+    }
+
+    public PortablePoint getRedSpot() {
+        return redSpot;
+    }
+
+    public void setRedSpot(PortablePoint redSpot) {
+        this.redSpot = redSpot;
+    }
 
     public AbstractColor getYellow() {
         return yellow;
@@ -76,14 +91,20 @@ public class CalibrationInfo {
     }
 
     private AbstractRasterImage markPartitionsInImage() {
+        PortableColor colorPartitions = new PortableColor(0, 0, 255);
+
         AbstractRasterImage clone = cloneImage(this.afterDilatation);
 
         for (int i = 0; i < partitions.size(); i++) {
             ImagePartition partition = partitions.get(i);
             PortablePoint center = partition.getCenter();
 
-            drawRectangle(clone, center);
+            drawRectangle(clone, center, colorPartitions);
         }
+
+        //Draw spots
+        drawRectangle(clone, getYellowSpot(), getYellow());
+        drawRectangle(clone, getRedSpot(), getRed());
 
         return clone;
     }
@@ -100,11 +121,9 @@ public class CalibrationInfo {
         return newImg;
     }
 
-    private static void drawRectangle(AbstractRasterImage img, PortablePoint pos) {
-        int width = 7;
-        int height = 7;
-
-        PortableColor color = new PortableColor(255, 0, 0);
+    private static void drawRectangle(AbstractRasterImage img, PortablePoint pos, AbstractColor color) {
+        int width = 9;
+        int height = 9;
 
         for (int i = -width / 2; i < width / 2; i++) {
             for (int j = -height / 2; j < height / 2; j++) {

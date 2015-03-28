@@ -36,6 +36,9 @@ public class BoardDetector {
     }
 
     public static CalibrationInfo calibrate(CalibrationInfo calib, AbstractRasterImage image, PortablePoint yellowSpot, PortablePoint redSpot, int columns, int rows, boolean debugOutput) throws IndexOutOfBoundsException, ImageAnalysisException, IOException {
+        calib.setYellowSpot(yellowSpot);
+        calib.setRedSpot(redSpot);
+
         log.info("LOG00000: Calibration started!");
         startTiming();
 
