@@ -35,24 +35,22 @@ public class BitImage {
     }
 
     public boolean getPixel(PortablePoint p) {
-        if (!isPointWithinBounds(p)) {
-            throw new IndexOutOfBoundsException();
-        }
-
         int i = this.calculatePositionInBitSet(p);
+
+//        if (i < 0 || i >= this.pixels.size()) {
+//            throw new IndexOutOfBoundsException();
+//        }
+
         return this.pixels.get(i);
     }
 
-    private boolean isPointWithinBounds(PortablePoint p) {
-        return (p.x < this.getWidth() && p.y < this.getHeight());
-    };
-
     public void setPixel(PortablePoint p, boolean state) {
-        if (!isPointWithinBounds(p)) {
-            throw new IndexOutOfBoundsException();
-        }
-
         int i = this.calculatePositionInBitSet(p);
+
+//        if (i < 0 || i >= this.pixels.size()) {
+//            throw new IndexOutOfBoundsException();
+//        }
+
         this.pixels.set(i, state);
     }
 
@@ -185,20 +183,34 @@ public class BitImage {
     }
 
     private void convertFromAbstractRasterImage(AbstractRasterImage image, BitImageConverter converter) {
-        HashMap<AbstractColor, Boolean> cache = new HashMap<AbstractColor, Boolean>();
+        HashSet<AbstractColor> cacheTrue = new HashSet<AbstractColor>();
+        HashSet<AbstractColor> cacheFalse = new HashSet<AbstractColor>();
+
 
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 AbstractColor c = image.getPixel(x, y);
 
-                Boolean value = cache.get(c);
-                if (value == null) {
-                    value = new Boolean(converter.isPixelSet(c));
+                boolean value = cacheTrue.contains(c);
+                if (!value) {
+                    value = cacheFalse.contains(c);
+
+                    if (!value) {
+                        value = converter.isPixelSet(c);
+
+                        if (value) {
+                            cacheTrue.add(c);
+                        }
+                        else {
+                            cacheFalse.add(c);
+                        }
+                    }
+                    else {
+                        value = !value;
+                    }
                 }
 
                 this.setPixel(new PortablePoint(x, y), value);
-
-                cache.put(c, value);
             }
         }
     }

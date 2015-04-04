@@ -16,8 +16,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +46,7 @@ public class BoardDetectorTest {
         });
     }
 
-    public BoardDetectorTest(String calibrationImagePath, String imagePath, String expectedBoardAllocation, PortablePoint yellowSpot, PortablePoint redSpot) {
+    public BoardDetectorTest(String calibrationImagePath, String imagePath, String expecteBoardAllocation, PortablePoint yellowSpot, PortablePoint redSpot) {
         this.calibrationImagePath = calibrationImagePath;
         this.imagePath = imagePath;
         this.expectedBoardAllocation = expectedBoardAllocation;
@@ -51,8 +54,25 @@ public class BoardDetectorTest {
         this.redSpot = redSpot;
     }
 
+    public static void main(String[] args) throws Exception {
+        Object[] conf = (Object[]) data().toArray()[0];
+
+        Constructor<BoardDetectorTest>[] constructors = (Constructor<BoardDetectorTest>[]) BoardDetectorTest.class.getDeclaredConstructors();
+        BoardDetectorTest test = constructors[0].newInstance(conf);
+
+
+        Scanner scn = new Scanner(System.in);
+        System.out.println("Press enter to continue...");
+
+        scn.nextLine();
+
+        test.testCalibrationAndBoardDetection();
+    }
+
     @Test
     public void testCalibrationAndBoardDetection() throws Exception {
+
+
         CalibrationInfo calibration = new CalibrationInfo();
 
         JVMImage calibrationImage = new JVMImage(ImageIO.read(new File(this.calibrationImagePath)));
