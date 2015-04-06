@@ -2,17 +2,17 @@ package de.dhbw.mbfl.imagedetection.ImagePartitioning;
 
 import de.dhbw.mbfl.imagedetection.BitImage.BitImage;
 import de.dhbw.mbfl.imagedetection.platformIndependence.PortablePoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by florian on 19.02.15.
  */
 public class ImagePartitioner {
 
+    private static final Logger log = LoggerFactory.getLogger(ImagePartitioner.class);
     private BitImage image;
     private HashSet<PortablePoint> setPixels = new HashSet<PortablePoint>();
     private NeighbourSearchMode mode;
@@ -40,20 +40,20 @@ public class ImagePartitioner {
     }
 
     private ImagePartition findNextPartition(PortablePoint startingPoint) {
-        Stack<PortablePoint> pointsToVisit = new Stack<PortablePoint>();
-        HashSet<PortablePoint> partition = new HashSet<PortablePoint>();
+        LinkedList<PortablePoint> pointsToVisit = new LinkedList<PortablePoint>();
+        Set<PortablePoint> partition = new HashSet<PortablePoint>();
 
         pointsToVisit.add(startingPoint);
         partition.add(startingPoint);
         this.setPixels.remove(startingPoint);
 
-        while (!pointsToVisit.empty()) {
-            PortablePoint p = pointsToVisit.pop();
+        while (pointsToVisit.size() > 0) {
+            PortablePoint p = pointsToVisit.removeFirst();
             ArrayList<PortablePoint> neighbours = this.getNeighbours(p);
             for (PortablePoint neighbour : neighbours) {
                 if (!this.setPixels.contains(neighbour)) continue;
 
-                pointsToVisit.add(neighbour);
+                pointsToVisit.addLast(neighbour);
                 partition.add(neighbour);
                 this.setPixels.remove(neighbour);
             }
