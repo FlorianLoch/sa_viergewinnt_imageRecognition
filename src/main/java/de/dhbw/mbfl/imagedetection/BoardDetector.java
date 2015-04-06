@@ -39,14 +39,14 @@ public class BoardDetector {
         calib.setYellowSpot(yellowSpot);
         calib.setRedSpot(redSpot);
 
-        log.info("LOG00000: Calibration started!");
+        log.debug("Calibration started! Dimensions of input image: " + image.getWidth() + "x" + image.getHeight() + "px");
         startTiming();
 
         AbstractColor yellowAvg = ImageUtils.averageColor(image, yellowSpot, WINDOW_SIZE_FOR_AVG);
         AbstractColor redAvg = ImageUtils.averageColor(image, redSpot, WINDOW_SIZE_FOR_AVG);
 
         long timeNeededForAverageColor = stopTiming();
-        log.info("LOG00020: Average colors computed after " + timeNeededForAverageColor + "ms");
+        log.debug("Average colors computed after " + timeNeededForAverageColor + "ms");
 
         calib.setYellow(yellowAvg);
         calib.setRed(redAvg);
@@ -60,7 +60,7 @@ public class BoardDetector {
         }
 
         long timeNeededImageConversion = stopTiming();
-        log.info("LOG00030: Image converted to BitImage in " + timeNeededImageConversion + "ms");
+        log.debug("Image converted to BitImage in " + timeNeededImageConversion + "ms");
 
         startTiming();
 
@@ -72,7 +72,7 @@ public class BoardDetector {
         }
 
         long timeNeededForEroding = stopTiming();
-        log.info("LOG00040: Eroding completed after " + timeNeededForEroding + "ms");
+        log.debug("Eroding completed after " + timeNeededForEroding + "ms");
 
         startTiming();
 
@@ -82,7 +82,7 @@ public class BoardDetector {
         }
 
         long timeNeededForDilating = stopTiming();
-        log.info("LOG00050: Dilating completed after " + timeNeededForDilating + "ms");
+        log.debug("Dilating completed after " + timeNeededForDilating + "ms");
 
         startTiming();
 
@@ -95,7 +95,7 @@ public class BoardDetector {
         calib.setPartitions(partitions);
 
         long timeNeededForPartitioning = stopTiming();
-        log.info("LOG00060: Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
+        log.debug("Partitioning via flood filling done in " + timeNeededForPartitioning + "ms");
 
         if (partitions.size() < columns * rows) {
             throw new ImageAnalysisException("In the given image only " + partitions.size() + " fields haven been found. " +
@@ -107,7 +107,7 @@ public class BoardDetector {
         partitions = partitions.sortPartitionsAccordingToBoard(columns);
 
         long timeNeededForSortingPartitions = stopTiming();
-        log.info("LOG00070: Sorting partitions done after " + timeNeededForSortingPartitions + "ms");
+        log.debug("Sorting partitions done after " + timeNeededForSortingPartitions + "ms");
 
         calib.setPartitions(partitions);
 

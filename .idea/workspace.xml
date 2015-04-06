@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3e130b-bf06-492a-bf86-c385f7a6d68d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetectorProfiling.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BitImage/BitImage.java" afterPath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BitImage/BitImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BitImage/BitImageTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BitImage/BitImageTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" afterPath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java" afterPath="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java" />
     </list>
     <ignored path="JConnect4ImageRecognition.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BoardDetector.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BoardDetector.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.42218542">
+              <caret line="41" column="130" selection-start-line="41" selection-start-column="130" selection-end-line="41" selection-end-column="130" />
               <folding />
             </state>
           </provider>
@@ -57,46 +54,6 @@
                 <element signature="e#2222#2223#0" expanded="false" />
                 <element signature="e#2266#2267#0" expanded="false" />
                 <element signature="e#2329#2330#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PartitionedImage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/PartitionedImage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#423#424#0" expanded="false" />
-                <element signature="e#488#489#0" expanded="false" />
-                <element signature="e#558#559#0" expanded="false" />
-                <element signature="e#602#603#0" expanded="false" />
-                <element signature="e#654#655#0" expanded="false" />
-                <element signature="e#707#708#0" expanded="false" />
-                <element signature="e#751#752#0" expanded="false" />
-                <element signature="e#800#801#0" expanded="false" />
-                <element signature="e#825#826#0" expanded="false" />
-                <element signature="e#870#871#0" expanded="false" />
-                <element signature="e#934#935#0" expanded="false" />
-                <element signature="e#983#984#0" expanded="false" />
-                <element signature="e#1030#1031#0" expanded="false" />
-                <element signature="e#1077#1078#0" expanded="false" />
-                <element signature="e#1116#1117#0" expanded="false" />
-                <element signature="e#1159#1160#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PartitionedImageTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/PartitionedImageTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="125" column="28" selection-start-line="125" selection-start-column="28" selection-end-line="125" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -122,14 +79,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BitImageTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BitImageTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BitImage/BitImageTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2821369">
-              <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
               <folding>
                 <element signature="e#1407#1576#0" expanded="true" />
                 <element signature="e#1575#1576#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImagePartitioner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+              <folding>
+                <element signature="e#1340#1355#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -233,17 +202,17 @@
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/platformIndependence/PortableColorTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartition.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitionerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/PartitionedImage.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/PartitionedImageTest.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/CalibrationInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetectorProfiling.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BoardDetectorTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BitImage/BitImage.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BitImage/BitImageTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java" />
       </list>
     </option>
   </component>
@@ -1138,12 +1107,12 @@
       <workItem from="1427473433508" duration="5126000" />
       <workItem from="1427531629946" duration="1362000" />
       <workItem from="1427626337855" duration="3043000" />
-      <workItem from="1428140721324" duration="5860000" />
+      <workItem from="1428140721324" duration="8631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171422000" />
+    <option name="totallyTimeSpent" value="174193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1631" height="1027" extended-state="6" />
@@ -1153,7 +1122,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3244397" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32406417" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1170,7 +1139,7 @@
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20830712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="100" y="123" width="1431" height="827" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1382,13 +1351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/NeighbourSearchMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17529215">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImageAnalysisException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12520868">
@@ -1473,13 +1435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/platformIndependence/PortablePoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/platformIndependence/PortablePointTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47579297">
@@ -1506,13 +1461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33222038">
           <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1626,14 +1574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home/src.zip!/java/lang/reflect/Constructor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33208254">
@@ -1681,12 +1621,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/de/dhbw/mbfl/imagedetection/BitImage/BitImageTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2821369">
-          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
           <folding>
             <element signature="e#1407#1576#0" expanded="true" />
             <element signature="e#1575#1576#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/NeighbourSearchMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12417219">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/platformIndependence/PortablePoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42218542">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/ImagePartitioning/ImagePartitioner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding>
+            <element signature="e#1340#1355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/dhbw/mbfl/imagedetection/BoardDetector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42218542">
+          <caret line="41" column="130" selection-start-line="41" selection-start-column="130" selection-end-line="41" selection-end-column="130" />
+          <folding />
         </state>
       </provider>
     </entry>

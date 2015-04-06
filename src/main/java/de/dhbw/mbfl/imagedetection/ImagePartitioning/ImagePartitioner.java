@@ -51,8 +51,7 @@ public class ImagePartitioner {
             PortablePoint p = pointsToVisit.pop();
             ArrayList<PortablePoint> neighbours = this.getNeighbours(p);
             for (PortablePoint neighbour : neighbours) {
-                if (!this.isPixelSet(neighbour)) continue;
-                //if (partition.contains(neighbour)) continue; unnecessary because if the pixel has been added to the partition already, it has also been removed from setPixels
+                if (!this.setPixels.contains(neighbour)) continue;
 
                 pointsToVisit.add(neighbour);
                 partition.add(neighbour);
@@ -61,10 +60,6 @@ public class ImagePartitioner {
         }
 
         return new ImagePartition(partition);
-    }
-
-    private boolean isPixelSet(PortablePoint p) {
-        return this.setPixels.contains(p);
     }
 
     private ArrayList<PortablePoint> getNeighbours(PortablePoint p) {
