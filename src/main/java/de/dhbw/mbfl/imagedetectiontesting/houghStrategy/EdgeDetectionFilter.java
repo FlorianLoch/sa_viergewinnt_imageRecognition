@@ -54,7 +54,7 @@ public class EdgeDetectionFilter {
         if (args.length < 1) {
             System.out.println("Max memory: " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "mebiByte");
 
-            new EdgeDetectionFilter(new File("real_game_small.jpg"));
+            new EdgeDetectionFilter(new File("computer_game_9_degree.png"));
         }
         else {
             File imgFile = new File(args[0]);
@@ -115,7 +115,7 @@ public class EdgeDetectionFilter {
             }
             System.out.println("Clusters found: " + clusters.size());
 
-            //this.detectedBoard = this.detectBoard(clusters, orig, origGreyscale);
+            this.detectedBoard = this.detectBoard(clusters, orig, origGreyscale);
 
             long duration = System.currentTimeMillis() - start;
             System.out.println("Time needed for circle detection: " + duration + "ms");
@@ -141,6 +141,7 @@ public class EdgeDetectionFilter {
         ImagePreviewPanel panelCluster = new ImagePreviewPanel(this.clustersImg, this.orig);
 
         JTextArea editorPaneBoard = new JTextArea();
+        editorPaneBoard.setText(this.detectedBoard.toString().replace("\u001B[33m●\u001B[0m", "Y").replace("\u001B[31m●\u001B[0m", "R"));
         editorPaneBoard.setFont(new Font("monospaced", Font.PLAIN, 12));
         JScrollPane scrollPaneBoard = new JScrollPane(editorPaneBoard);
         scrollPaneBoard.setPreferredSize(new Dimension(WIDTH, HEIGHT));

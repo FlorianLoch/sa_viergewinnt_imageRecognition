@@ -26,5 +26,8 @@
         <module name="JConnect4ImageRecognition" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="JConnect4ImageRecognition" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
 </project>
