@@ -82,7 +82,8 @@ public class BoardDetector {
         }
 
         long timeNeededForDilating = stopTiming();
-        log.debug("Dilating completed after " + timeNeededForDilating + "ms");
+        //log.debug("Dilating completed after " + timeNeededForDilating + "ms");
+        log.debug("Dilation is currently disabled!");
 
         startTiming();
 
@@ -155,15 +156,15 @@ public class BoardDetector {
         double distanceYellow = ImageUtils.computeColorDistance(this.calibration.getYellow(), colorInImage);
         double distanceRed = ImageUtils.computeColorDistance(this.calibration.getRed(), colorInImage);
 
+        if (distanceYellow > COLOR_EQUALITY_TOLERANCE && distanceRed > COLOR_EQUALITY_TOLERANCE) {
+            return null;
+        }
+
         if (distanceYellow <= distanceRed) {
             result = Stone.YELLOW;
         }
         else {
             result = Stone.RED;
-        }
-
-        if (distanceYellow > COLOR_EQUALITY_TOLERANCE && distanceRed > COLOR_EQUALITY_TOLERANCE) {
-            return null;
         }
 
         return result;
